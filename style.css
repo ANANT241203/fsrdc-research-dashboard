@@ -176,6 +176,32 @@ ul {
     transform: translateY(-2px) scale(1.03);
 }
 
+/* Chart Dropdown */
+.chart-dropdown {
+    background: #e6f9ee;
+    color: #145c39;
+    border: 1.5px solid #b6e2c6;
+    border-radius: 12px;
+    padding: 0.5em 1.2em;
+    font-size: 1.05em;
+    font-weight: 500;
+    margin-bottom: 1.2em;
+    margin-top: 0.5em;
+    box-shadow: 0 2px 8px rgba(33,140,91,0.08);
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    appearance: none;
+}
+.chart-dropdown:focus, .chart-dropdown:hover {
+    border-color: #218c5b;
+    box-shadow: 0 4px 16px rgba(33,140,91,0.15);
+}
+.chart-dropdown option {
+    background: #f8fff9;
+    color: #145c39;
+}
+
 /* Dark Mode */
 body.dark-mode {
     background-color: #1a3d2f;
@@ -267,4 +293,19 @@ body.dark-mode .author-toggle-btn {
 body.dark-mode .author-toggle-btn:hover, body.dark-mode .author-toggle-btn:focus {
     background: linear-gradient(90deg, #7be495 0%, #145c39 100%);
     color: #145c39;
+}
+
+body.dark-mode .chart-dropdown {
+    background: #223f2e;
+    color: #7be495;
+    border: 1.5px solid #2e5c44;
+    box-shadow: 0 2px 8px rgba(33,140,91,0.18);
+}
+body.dark-mode .chart-dropdown:focus, body.dark-mode .chart-dropdown:hover {
+    border-color: #7be495;
+    box-shadow: 0 4px 16px rgba(123,228,149,0.18);
+}
+body.dark-mode .chart-dropdown option {
+    background: #223f2e;
+    color: #7be495;
 }
