@@ -57,20 +57,26 @@ ul {
     right: 2em;
     background: rgba(255,255,255,0.15);
     border: none;
-    padding: 0.5em 0.7em;
-    border-radius: 50%;
+    padding: 0.5em 1.2em;
+    border-radius: 18px;
     cursor: pointer;
-    font-size: 1.3em;
+    font-size: 1.1em;
     color: #fff;
-    box-shadow: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     z-index: 10;
     outline: none;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 }
 
 .toggle-btn:hover, .toggle-btn:focus {
     background: rgba(0,0,0,0.10);
     color: #ffe066;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
 
 /* Tab Navigation */
@@ -140,6 +146,7 @@ body.dark-mode .toggle-btn {
 body.dark-mode .toggle-btn:hover, body.dark-mode .toggle-btn:focus {
     background: rgba(255,255,255,0.10);
     color: #ffe066;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
 }
 
 body.dark-mode .tab-nav {
