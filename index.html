@@ -13,111 +13,126 @@
         <p>An interactive visualization of U.S. Census FSRDC-linked research outputs</p>
     </header>
 
-    <section>
+    <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="summary">Summary</button>
+        <button class="tab-btn" data-tab="rdc">RDCs & Trends</button>
+        <button class="tab-btn" data-tab="authors">Authors</button>
+        <button class="tab-btn" data-tab="clustering">Clustering & PCA</button>
+        <button class="tab-btn" data-tab="topics">Topics</button>
+        <button class="tab-btn" data-tab="des">DES</button>
+        <button class="tab-btn" data-tab="table">Data Table</button>
+        <button class="tab-btn" data-tab="download">Download & Team</button>
+    </nav>
+
+    <section class="tab-content" id="tab-summary">
+        <h2>Project Summary</h2>
+        <p><strong>Dashboard Features:</strong></p>
+        <ul>
+            <li>Interactive bar chart of the top 10 RDCs by research output</li>
+            <li>Line chart showing publication trends over the years</li>
+            <li>Toggleable bar/line chart of the top 10 most prolific authors</li>
+            <li>2D PCA projection plot visualizing research output groupings</li>
+            <li>Animated cluster plot (KMeans) showing how research clusters evolve over time</li>
+            <li>Searchable and filterable table preview of top research outputs</li>
+            <li>LDA topic modeling insights and word cloud visualization of research themes</li>
+            <li>Discrete Event Simulation (DES) conceptual insights on project lifecycle delays</li>
+            <li>Download link for the enriched dataset (CSV)</li>
+            <li>Dark mode/light mode toggle for accessibility</li>
+            <li>Team member and data/tool information sections</li>
+        </ul>
+        <p><strong>Key Results & Insights:</strong></p>
+        <ul>
+            <li>The Boston RDC leads in research output, followed by Michigan and Chicago</li>
+            <li>Publication activity has grown steadily since 2011, peaking in 2023</li>
+            <li>The most prolific author is David H Autor, with 46 outputs</li>
+            <li>PCA and clustering reveal three main research clusters, suggesting distinct research communities or institutional patterns</li>
+            <li>LDA topic modeling identified five major research themes: Health & Labor Economics, Firms & Innovation, High-Energy Physics, Gravitational Wave Science, and technical/markup artifacts</li>
+            <li>DES simulation suggests the median time from project start to publication is 3–4 years, with bottlenecks at approval and data access stages</li>
+            <li>The dashboard provides a comprehensive, interactive view of FSRDC-linked research, supporting further exploration and analysis</li>
+        </ul>
+    </section>
+
+    <section class="tab-content" id="tab-rdc" style="display:none;">
         <h2>Top 10 RDCs by Research Output</h2>
         <p>The bar chart below highlights the top 10 Research Data Centers (RDCs) by the number of associated research outputs. This provides a broader view of research activity across more centers.</p>
         <div id="rdc-bar"></div>
-    </section>
-
-    <section>
         <h2>Publication Trend Over Years</h2>
         <p>This line chart illustrates the growth in FSRDC-linked publications over time. There is a noticeable rise in output starting around 2011, with peak publication activity in 2023, suggesting growing utilization of restricted microdata.</p>
         <div id="pub-trend"></div>
     </section>
 
-    <section>
+    <section class="tab-content" id="tab-authors" style="display:none;">
         <h2>Top 10 Authors</h2>
         <p>The bar chart shows the top 10 most prolific authors in the FSRDC ecosystem. This gives a more comprehensive look at researcher contributions.</p>
         <div id="top-authors"></div>
     </section>
 
-    <section>
+    <section class="tab-content" id="tab-clustering" style="display:none;">
         <h2>PCA Projection</h2>
         <p>Principal Component Analysis (PCA) helps visualize the dataset in 2 dimensions based on year and project duration. This projection shows some natural grouping among research outputs.</p>
         <div id="pca-plot"></div>
-    </section>
-
-    <section>
         <h2>Cluster Visualization</h2>
         <p>Using KMeans clustering on the PCA-transformed data reveals 3 major clusters of research outputs. These clusters may reflect temporal or institutional research behavior patterns.</p>
         <div id="cluster-plot"></div>
     </section>
 
-    <section>
-        <h2>Project Summary</h2>
-        <p>This interactive dashboard presents findings from a comprehensive analysis of FSRDC-linked research metadata. It integrates data enrichment, machine learning, and interactive plotting for exploratory insights.</p>
+    <section class="tab-content" id="tab-topics" style="display:none;">
+        <h2>Topic Modeling Insights</h2>
+        <p>We applied Latent Dirichlet Allocation (LDA) to uncover latent research themes from publication titles. The model identified five prominent topics:</p>
+        <ul>
+            <li><strong>Health & Labor Economics:</strong> effects, health, labor, insurance, children</li>
+            <li><strong>Firms & Innovation:</strong> firms, survey, entrepreneurship, policy, census</li>
+            <li><strong>High-Energy Physics:</strong> proton, tev, collisions, measurement</li>
+            <li><strong>Gravitational Wave Science:</strong> gravitational, wave, LIGO, performance</li>
+            <li><strong>Markup/Formatting Noise:</strong> technical tags and math markup artifacts</li>
+        </ul>
+        <h2>Topic Modeling Word Cloud</h2>
+        <p>This word cloud visualizes the most prominent terms identified through LDA topic modeling of research titles. Larger words appear more frequently across top topics.</p>
+        <img src="lda_wordcloud.png" alt="Word Cloud of LDA Topics" style="width:100%;max-width:800px;display:block;margin:auto;">
     </section>
-        <section>
-            <h2>Topic Modeling Insights</h2>
-            <p>We applied Latent Dirichlet Allocation (LDA) to uncover latent research themes from publication titles. The model identified five prominent topics:</p>
-            <ul>
-                <li><strong>Health & Labor Economics:</strong> effects, health, labor, insurance, children</li>
-                <li><strong>Firms & Innovation:</strong> firms, survey, entrepreneurship, policy, census</li>
-                <li><strong>High-Energy Physics:</strong> proton, tev, collisions, measurement</li>
-                <li><strong>Gravitational Wave Science:</strong> gravitational, wave, LIGO, performance</li>
-                <li><strong>Markup/Formatting Noise:</strong> technical tags and math markup artifacts</li>
-            </ul>
-        </section>
-        
-        <section>
-            <h2>Discrete Event Simulation (DES) Insights</h2>
-            <p>To illustrate data flow in the FSRDC ecosystem, we implemented a conceptual Discrete Event Simulation (DES). The simulation models project lifecycles from proposal submission to publication, capturing delays from RDC approval, data access, and analysis.</p>
-            <ul>
-                <li><strong>Entities:</strong> Projects submitted to RDCs</li>
-                <li><strong>Events:</strong> Proposal approval, data access granted, output published</li>
-                <li><strong>Resources:</strong> RDC data specialists and reviewers</li>
-                <li><strong>Key Insight:</strong> Median time from start to output is 3–4 years, with substantial queueing at approval and access stages.</li>
-            </ul>
-            <p>This simulation highlights the importance of streamlining RDC processes to improve research throughput.</p>
-        </section>
-        
-    
-    
-        <section>
-            <h2>Top Research Outputs (Preview)</h2>
-            <input type="text" id="searchInput" placeholder="Search by author or year..." onkeyup="filterTable()" style="width:100%;padding:0.5em;margin-bottom:1em;font-size:1em;">
-            <table id="outputTable" border="1" cellpadding="8" cellspacing="0" style="width:100%;border-collapse:collapse;">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Year</th>
-                        <th>Author (PI)</th>
-                        <th>DOI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Technology Adoption and Employment</td><td>2022</td><td>David H Autor</td><td><a href="https://doi.org/10.1257/pol.20210350" target="_blank">Link</a></td></tr>
-                    <tr><td>Trade Policy Uncertainty and Firm Investment</td><td>2020</td><td>Rodney Ramcharan</td><td><a href="https://doi.org/10.1016/j.jinteco.2020.103328" target="_blank">Link</a></td></tr>
-                    <tr><td>Urban Logistics and Pollution: A Case Study</td><td>2019</td><td>Jose Holguin-Veras</td><td><a href="https://doi.org/10.1016/j.trd.2019.05.012" target="_blank">Link</a></td></tr>
-                    <tr><td>Firm Leverage and Productivity</td><td>2021</td><td>Gordon M Phillips</td><td><a href="https://doi.org/10.1093/rof/rfac021" target="_blank">Link</a></td></tr>
-                    <tr><td>Immigration and Regional Labor Markets</td><td>2023</td><td>Qingfang Wang</td><td><a href="https://doi.org/10.1111/pirs.12749" target="_blank">Link</a></td></tr>
-                    <tr><td>Market Size and Innovation: Evidence from Patents</td><td>2018</td><td>David H Autor</td><td><a href="https://doi.org/10.1093/qje/qjx040" target="_blank">Link</a></td></tr>
-                    <tr><td>The Impact of Medicaid Expansion</td><td>2021</td><td>Rodney Ramcharan</td><td><a href="https://doi.org/10.1016/j.jpubeco.2020.104327" target="_blank">Link</a></td></tr>
-                    <tr><td>Small Business Lending after the Crisis</td><td>2017</td><td>Jose Holguin-Veras</td><td><a href="https://doi.org/10.1016/j.jfi.2017.01.001" target="_blank">Link</a></td></tr>
-                    <tr><td>Productivity Spillovers in the U.S.</td><td>2022</td><td>Gordon M Phillips</td><td><a href="https://doi.org/10.1093/rof/rfab028" target="_blank">Link</a></td></tr>
-                    <tr><td>Rural Employment and Economic Development</td><td>2020</td><td>Qingfang Wang</td><td><a href="https://doi.org/10.1016/j.worlddev.2020.105161" target="_blank">Link</a></td></tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <script>
-        function filterTable() {
-            var input = document.getElementById("searchInput").value.toLowerCase();
-            var rows = document.querySelectorAll("#outputTable tbody tr");
-            rows.forEach(row => {
-                var year = row.cells[1].textContent.toLowerCase();
-                var author = row.cells[2].textContent.toLowerCase();
-                row.style.display = (author.includes(input) || year.includes(input)) ? "" : "none";
-            });
-        }
-        </script>
-        <section>
-            <h2>Topic Modeling Word Cloud</h2>
-            <p>This word cloud visualizes the most prominent terms identified through LDA topic modeling of research titles. Larger words appear more frequently across top topics.</p>
-            <img src="lda_wordcloud.png" alt="Word Cloud of LDA Topics" style="width:100%;max-width:800px;display:block;margin:auto;">
-        </section>
-        
-    <section>
+
+    <section class="tab-content" id="tab-des" style="display:none;">
+        <h2>Discrete Event Simulation (DES) Insights</h2>
+        <p>To illustrate data flow in the FSRDC ecosystem, we implemented a conceptual Discrete Event Simulation (DES). The simulation models project lifecycles from proposal submission to publication, capturing delays from RDC approval, data access, and analysis.</p>
+        <ul>
+            <li><strong>Entities:</strong> Projects submitted to RDCs</li>
+            <li><strong>Events:</strong> Proposal approval, data access granted, output published</li>
+            <li><strong>Resources:</strong> RDC data specialists and reviewers</li>
+            <li><strong>Key Insight:</strong> Median time from start to output is 3–4 years, with substantial queueing at approval and access stages.</li>
+        </ul>
+        <p>This simulation highlights the importance of streamlining RDC processes to improve research throughput.</p>
+    </section>
+
+    <section class="tab-content" id="tab-table" style="display:none;">
+        <h2>Top Research Outputs (Preview)</h2>
+        <input type="text" id="searchInput" placeholder="Search by author or year..." onkeyup="filterTable()" style="width:100%;padding:0.5em;margin-bottom:1em;font-size:1em;">
+        <table id="outputTable" border="1" cellpadding="8" cellspacing="0" style="width:100%;border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Author (PI)</th>
+                    <th>DOI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Technology Adoption and Employment</td><td>2022</td><td>David H Autor</td><td><a href="https://doi.org/10.1257/pol.20210350" target="_blank">Link</a></td></tr>
+                <tr><td>Trade Policy Uncertainty and Firm Investment</td><td>2020</td><td>Rodney Ramcharan</td><td><a href="https://doi.org/10.1016/j.jinteco.2020.103328" target="_blank">Link</a></td></tr>
+                <tr><td>Urban Logistics and Pollution: A Case Study</td><td>2019</td><td>Jose Holguin-Veras</td><td><a href="https://doi.org/10.1016/j.trd.2019.05.012" target="_blank">Link</a></td></tr>
+                <tr><td>Firm Leverage and Productivity</td><td>2021</td><td>Gordon M Phillips</td><td><a href="https://doi.org/10.1093/rof/rfac021" target="_blank">Link</a></td></tr>
+                <tr><td>Immigration and Regional Labor Markets</td><td>2023</td><td>Qingfang Wang</td><td><a href="https://doi.org/10.1111/pirs.12749" target="_blank">Link</a></td></tr>
+                <tr><td>Market Size and Innovation: Evidence from Patents</td><td>2018</td><td>David H Autor</td><td><a href="https://doi.org/10.1093/qje/qjx040" target="_blank">Link</a></td></tr>
+                <tr><td>The Impact of Medicaid Expansion</td><td>2021</td><td>Rodney Ramcharan</td><td><a href="https://doi.org/10.1016/j.jpubeco.2020.104327" target="_blank">Link</a></td></tr>
+                <tr><td>Small Business Lending after the Crisis</td><td>2017</td><td>Jose Holguin-Veras</td><td><a href="https://doi.org/10.1016/j.jfi.2017.01.001" target="_blank">Link</a></td></tr>
+                <tr><td>Productivity Spillovers in the U.S.</td><td>2022</td><td>Gordon M Phillips</td><td><a href="https://doi.org/10.1093/rof/rfab028" target="_blank">Link</a></td></tr>
+                <tr><td>Rural Employment and Economic Development</td><td>2020</td><td>Qingfang Wang</td><td><a href="https://doi.org/10.1016/j.worlddev.2020.105161" target="_blank">Link</a></td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="tab-content" id="tab-download" style="display:none;">
+        <h2>Download Enriched Dataset</h2>
+        <p><a href="ResearchOutputs_Group3.csv" download>📥 Click here to download the enriched dataset used in this dashboard (CSV format)</a></p>
         <h2>Data Sources & Tools</h2>
         <ul>
             <li>Dataset: U.S. Census Bureau’s FSRDC metadata (curated from 8 group CSVs)</li>
@@ -125,13 +140,6 @@
             <li>JavaScript Visualization: Plotly.js</li>
             <li>Hosted with GitHub Pages</li>
         </ul>
-    </section>
-    <section>
-        <h2>Download Enriched Dataset</h2>
-        <p><a href="ResearchOutputs_Group3.csv" download>📥 Click here to download the enriched dataset used in this dashboard (CSV format)</a></p>
-      </section>
-      
-    <section>
         <h2>Team Members</h2>
         <ul>
             <li>Haoxuan Wu – hxwu@seas.upenn.edu</li>
@@ -142,9 +150,36 @@
             <li>Bliss Zheng – blissz@seas.upenn.edu</li>
         </ul>
     </section>
+
     <footer>
         <p>Created by Group 3 | CIT5900 Project 3 | Spring 2025</p>
     </footer>
+
+    <script>
+    function filterTable() {
+        var input = document.getElementById("searchInput").value.toLowerCase();
+        var rows = document.querySelectorAll("#outputTable tbody tr");
+        rows.forEach(row => {
+            var year = row.cells[1].textContent.toLowerCase();
+            var author = row.cells[2].textContent.toLowerCase();
+            row.style.display = (author.includes(input) || year.includes(input)) ? "" : "none";
+        });
+    }
+
+    // Tab navigation logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(tc => tc.style.display = 'none');
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).style.display = '';
+            });
+        });
+    });
+    </script>
 
     <script src="scripts.js?v=3"></script>
 

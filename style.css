@@ -73,6 +73,36 @@ ul {
     color: #ffe066;
 }
 
+/* Tab Navigation */
+.tab-nav {
+    display: flex;
+    justify-content: center;
+    background: #e6f0fa;
+    border-bottom: 1px solid #cce0ff;
+    margin-bottom: 2em;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 1em 2em;
+    font-size: 1.1em;
+    color: #004c99;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn.active, .tab-btn:focus {
+    background: #cce0ff;
+    color: #222;
+    border-bottom: 3px solid #004c99;
+}
+
 /* Dark Mode */
 body.dark-mode {
     background-color: #121212;
@@ -110,4 +140,19 @@ body.dark-mode .toggle-btn {
 body.dark-mode .toggle-btn:hover, body.dark-mode .toggle-btn:focus {
     background: rgba(255,255,255,0.10);
     color: #ffe066;
+}
+
+body.dark-mode .tab-nav {
+    background: #181c24;
+    border-bottom: 1px solid #222;
+}
+
+body.dark-mode .tab-btn {
+    color: #7aa9ff;
+}
+
+body.dark-mode .tab-btn.active, body.dark-mode .tab-btn:focus {
+    background: #222b3a;
+    color: #ffe066;
+    border-bottom: 3px solid #7aa9ff;
 }
