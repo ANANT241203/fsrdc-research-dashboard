@@ -11,11 +11,21 @@ body, p, li, td, th, input, label, span, div, ul, ol {
 }
 
 header {
-    position: relative;
-    background: #218c5b;
-    color: #fff;
-    padding: 2em;
+    background: #ffffff;
+    padding: 1.5em 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+header h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #218c5b;
+    margin: 0;
+}
+header p {
+    font-size: 1.2em;
+    color: #555555;
+    margin: 0.5em 0 0;
 }
 
 section {
@@ -251,6 +261,59 @@ ul {
     }
 }
 
+/* Tab Content */
+.tab-content {
+    background: #f8fff9;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(33,140,91,0.08);
+    padding: 2.5em 2em 2em 2em;
+    margin-bottom: 2.5em;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.tab-content h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 0.7em;
+    color: #218c5b;
+}
+.tab-content p {
+    font-size: 1.07em;
+    line-height: 1.7;
+    margin-bottom: 1.5em;
+    color: #333333;
+}
+.tab-content ul {
+    list-style: disc inside;
+    margin: 0 0 0 0.5em;
+    padding: 0;
+    line-height: 1.7;
+    font-size: 1.07em;
+    font-weight: 400;
+}
+.tab-content ul li {
+    margin-bottom: 0.7em;
+    padding-left: 0.2em;
+}
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em;
+    }
+    header p {
+        font-size: 1em;
+    }
+    .tab-content {
+        padding: 1.2em 0.5em;
+    }
+    .tab-content h2 {
+        font-size: 1.2em;
+    }
+    .tab-content p, .tab-content ul {
+        font-size: 1em;
+    }
+}
+
 /* Dark Mode */
 body.dark-mode {
     background-color: #1a3d2f;
@@ -262,8 +325,14 @@ body.dark-mode, body.dark-mode p, body.dark-mode li, body.dark-mode td, body.dar
 }
 
 body.dark-mode header {
-    background: #145c39;
-    color: #e6f9ee;
+    background: #223f2e;
+    box-shadow: 0 2px 12px rgba(123,228,149,0.10);
+}
+body.dark-mode header h1 {
+    color: #7be495;
+}
+body.dark-mode header p {
+    color: #a8d5ba;
 }
 
 body.dark-mode section {
@@ -369,4 +438,15 @@ body.dark-mode .summary-card {
 }
 body.dark-mode .summary-lead {
     color: #7be495;
+}
+
+body.dark-mode .tab-content {
+    background: #223f2e;
+    box-shadow: 0 2px 12px rgba(123,228,149,0.10);
+}
+body.dark-mode .tab-content h2 {
+    color: #7be495;
+}
+body.dark-mode .tab-content p {
+    color: #d4f3e1;
 }
