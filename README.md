@@ -82,10 +82,4 @@ An interactive, web-based visualization of research output from the U.S. Census 
 
 **CIT 5900 – Programming for the Web**  
 Spring 2025 — University of Pennsylvania  
-Instructor: Chris Murphy
-
----
-
-## 📄 License
-
-Released under the MIT License.
+Instructor: Dr. Kaihua Ding
