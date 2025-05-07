@@ -24,32 +24,36 @@
         <button class="tab-btn" data-tab="download">Download & Team</button>
     </nav>
 
-    <section class="tab-content" id="tab-summary">
+    <section class="tab-content summary-card" id="tab-summary">
         <h2>Project Summary</h2>
-        <p><strong>Dashboard Features:</strong></p>
-        <ul>
-            <li>Interactive bar chart of the top 10 RDCs by research output</li>
-            <li>Line chart showing publication trends over the years</li>
-            <li>Toggleable bar/line chart of the top 10 most prolific authors</li>
-            <li>2D PCA projection plot visualizing research output groupings</li>
-            <li><b>Animated cluster plot (KMeans) showing how research clusters evolve over time</b></li>
-            <li>Searchable and filterable table preview of top research outputs</li>
-            <li>LDA topic modeling insights and word cloud visualization of research themes</li>
-            <li>Discrete Event Simulation (DES) conceptual insights on project lifecycle delays</li>
-            <li>Download link for the enriched dataset (CSV)</li>
-            <li>Dark mode/light mode toggle for accessibility</li>
-            <li>Team member and data/tool information sections</li>
-        </ul>
-        <p><strong>Key Results & Insights:</strong></p>
-        <ul>
-            <li>The Boston RDC leads in research output, followed by Michigan and Chicago</li>
-            <li>Publication activity has grown steadily since 2011, peaking in 2023</li>
-            <li>The most prolific author is David H Autor, with 46 outputs</li>
-            <li>PCA and clustering reveal three main research clusters, suggesting distinct research communities or institutional patterns</li>
-            <li>LDA topic modeling identified five major research themes: Health & Labor Economics, Firms & Innovation, High-Energy Physics, Gravitational Wave Science, and technical/markup artifacts</li>
-            <li>DES simulation suggests the median time from project start to publication is 3–4 years, with bottlenecks at approval and data access stages</li>
-            <li>The dashboard provides a comprehensive, interactive view of FSRDC-linked research, supporting further exploration and analysis</li>
-        </ul>
+        <div class="summary-block">
+            <p class="summary-lead"><strong>Dashboard Features:</strong></p>
+            <ul class="summary-list">
+                <li>Interactive bar chart of the top 10 RDCs by research output</li>
+                <li>Line chart showing publication trends over the years</li>
+                <li>Toggleable bar/line chart of the top 10 most prolific authors</li>
+                <li>2D PCA projection plot visualizing research output groupings</li>
+                <li><b>Animated cluster plot (KMeans) showing how research clusters evolve over time</b></li>
+                <li>Searchable and filterable table preview of top research outputs</li>
+                <li>LDA topic modeling insights and word cloud visualization of research themes</li>
+                <li>Discrete Event Simulation (DES) conceptual insights on project lifecycle delays</li>
+                <li>Download link for the enriched dataset (CSV)</li>
+                <li>Dark mode/light mode toggle for accessibility</li>
+                <li>Team member and data/tool information sections</li>
+            </ul>
+        </div>
+        <div class="summary-block">
+            <p class="summary-lead"><strong>Key Results & Insights:</strong></p>
+            <ul class="summary-list">
+                <li>The Boston RDC leads in research output, followed by Michigan and Chicago</li>
+                <li>Publication activity has grown steadily since 2011, peaking in 2023</li>
+                <li>The most prolific author is David H Autor, with 46 outputs</li>
+                <li>PCA and clustering reveal three main research clusters, suggesting distinct research communities or institutional patterns</li>
+                <li>LDA topic modeling identified five major research themes: Health & Labor Economics, Firms & Innovation, High-Energy Physics, Gravitational Wave Science, and technical/markup artifacts</li>
+                <li>DES simulation suggests the median time from project start to publication is 3–4 years, with bottlenecks at approval and data access stages</li>
+                <li>The dashboard provides a comprehensive, interactive view of FSRDC-linked research, supporting further exploration and analysis</li>
+            </ul>
+        </div>
     </section>
 
     <section class="tab-content" id="tab-rdc" style="display:none;">
