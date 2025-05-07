@@ -14,34 +14,67 @@
 
     <section>
         <h2>Top RDCs by Research Output</h2>
+        <p>The bar chart below highlights the top 5 Research Data Centers (RDCs) by the number of associated research outputs. Boston and Michigan emerge as the most prolific centers, reflecting their high research activity using FSRDC data.</p>
         <div id="rdc-bar"></div>
     </section>
 
     <section>
         <h2>Publication Trend Over Years</h2>
+        <p>This line chart illustrates the growth in FSRDC-linked publications over time. There is a noticeable rise in output starting around 2011, with peak publication activity in 2023, suggesting growing utilization of restricted microdata.</p>
         <div id="pub-trend"></div>
     </section>
 
     <section>
         <h2>Top Authors</h2>
+        <p>The bar chart shows the top 5 most prolific authors in the FSRDC ecosystem. David H. Autor leads significantly, indicating his consistent contribution to research using confidential Census data.</p>
         <div id="top-authors"></div>
     </section>
 
     <section>
         <h2>PCA Projection</h2>
+        <p>Principal Component Analysis (PCA) helps visualize the dataset in 2 dimensions based on year and project duration. This projection shows some natural grouping among research outputs.</p>
         <div id="pca-plot"></div>
     </section>
 
     <section>
         <h2>Cluster Visualization</h2>
+        <p>Using KMeans clustering on the PCA-transformed data reveals 3 major clusters of research outputs. These clusters may reflect temporal or institutional research behavior patterns.</p>
         <div id="cluster-plot"></div>
     </section>
 
     <section>
         <h2>Project Summary</h2>
-        <p>This interactive dashboard presents insights from over 3,000 research outputs associated with U.S. Census FSRDCs (Federal Statistical Research Data Centers). The visualizations show trends in publication activity, identify prolific RDCs, and highlight leading authors contributing to the FSRDC research ecosystem.</p>
+        <p>This interactive dashboard presents findings from a comprehensive analysis of FSRDC-linked research metadata. It integrates data enrichment, machine learning, and interactive plotting for exploratory insights.</p>
     </section>
+        <section>
+            <h2>Topic Modeling Insights</h2>
+            <p>We applied Latent Dirichlet Allocation (LDA) to uncover latent research themes from publication titles. The model identified five prominent topics:</p>
+            <ul>
+                <li><strong>Health & Labor Economics:</strong> effects, health, labor, insurance, children</li>
+                <li><strong>Firms & Innovation:</strong> firms, survey, entrepreneurship, policy, census</li>
+                <li><strong>High-Energy Physics:</strong> proton, tev, collisions, measurement</li>
+                <li><strong>Gravitational Wave Science:</strong> gravitational, wave, LIGO, performance</li>
+                <li><strong>Markup/Formatting Noise:</strong> technical tags and math markup artifacts</li>
+            </ul>
+        </section>
+        
+    
+    
 
+    <section>
+        <h2>Data Sources & Tools</h2>
+        <ul>
+            <li>Dataset: U.S. Census Bureau’s FSRDC metadata (curated from 8 group CSVs)</li>
+            <li>Python Libraries: pandas, scikit-learn, seaborn, matplotlib, Plotly</li>
+            <li>JavaScript Visualization: Plotly.js</li>
+            <li>Hosted with GitHub Pages</li>
+            <section>
+                <h2>Download Enriched Dataset</h2>
+                <p><a href="ResearchOutputs_Group3.csv" download>📥 Click here to download the enriched dataset used in this dashboard (CSV format)</a></p>
+            </section>
+            
+        </ul>
+    </section>
     <section>
         <h2>Team Members</h2>
         <ul>
@@ -53,7 +86,6 @@
             <li>Bliss Zheng – blissz@seas.upenn.edu</li>
         </ul>
     </section>
-
     <footer>
         <p>Created by Group 3 | CIT5900 Project 3 | Spring 2025</p>
     </footer>
