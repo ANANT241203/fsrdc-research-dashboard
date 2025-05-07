@@ -62,7 +62,7 @@ ul {
     border-radius: 18px;
     cursor: pointer;
     font-size: 1.1em;
-    color: #218c5b;
+    color: #145c39; /* Always dark green for best contrast */
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     z-index: 10;
@@ -108,6 +108,72 @@ ul {
     background: #b6e2c6;
     color: #145c39;
     border-bottom: 3px solid #218c5b;
+}
+
+/* Styled Table */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.05em;
+    background: #f8fff9;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(33,140,91,0.07);
+    margin-bottom: 1em;
+    transition: box-shadow 0.2s;
+}
+.styled-table thead {
+    background: #b6e2c6;
+    color: #145c39;
+}
+.styled-table th, .styled-table td {
+    padding: 0.85em 1em;
+    text-align: left;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #e6f9ee;
+    transition: background 0.2s;
+}
+.styled-table tbody tr:nth-child(even) {
+    background: #e6f9ee;
+}
+.styled-table tbody tr:hover {
+    background: #b6e2c6;
+    color: #145c39;
+    cursor: pointer;
+}
+.styled-table a {
+    color: #218c5b;
+    text-decoration: underline;
+    font-weight: 500;
+}
+.styled-table a:hover {
+    color: #145c39;
+}
+
+/* Author Toggle Button */
+.author-toggle-btn {
+    background: linear-gradient(90deg, #7be495 0%, #218c5b 100%);
+    color: #145c39;
+    border: none;
+    border-radius: 18px;
+    padding: 0.6em 1.5em;
+    font-size: 1.05em;
+    font-weight: 500;
+    margin: 0 0 1.2em 0;
+    box-shadow: 0 2px 8px rgba(33,140,91,0.10);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+}
+.author-toggle-btn:hover, .author-toggle-btn:focus {
+    background: linear-gradient(90deg, #218c5b 0%, #7be495 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(33,140,91,0.18);
+    transform: translateY(-2px) scale(1.03);
 }
 
 /* Dark Mode */
@@ -167,4 +233,38 @@ body.dark-mode .tab-btn.active, body.dark-mode .tab-btn:focus {
     background: #2e5c44;
     color: #b6e2c6;
     border-bottom: 3px solid #7be495;
+}
+
+body.dark-mode .styled-table {
+    background: #223f2e;
+    box-shadow: 0 2px 8px rgba(33,140,91,0.18);
+}
+body.dark-mode .styled-table thead {
+    background: #2e5c44;
+    color: #7be495;
+}
+body.dark-mode .styled-table tbody tr:nth-child(even) {
+    background: #223f2e;
+}
+body.dark-mode .styled-table tbody tr {
+    border-bottom: 1px solid #2e5c44;
+}
+body.dark-mode .styled-table tbody tr:hover {
+    background: #145c39;
+    color: #b6e2c6;
+}
+body.dark-mode .styled-table a {
+    color: #7be495;
+}
+body.dark-mode .styled-table a:hover {
+    color: #b6e2c6;
+}
+
+body.dark-mode .author-toggle-btn {
+    background: linear-gradient(90deg, #145c39 0%, #7be495 100%);
+    color: #e6f9ee;
+}
+body.dark-mode .author-toggle-btn:hover, body.dark-mode .author-toggle-btn:focus {
+    background: linear-gradient(90deg, #7be495 0%, #145c39 100%);
+    color: #145c39;
 }

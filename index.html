@@ -32,7 +32,7 @@
             <li>Line chart showing publication trends over the years</li>
             <li>Toggleable bar/line chart of the top 10 most prolific authors</li>
             <li>2D PCA projection plot visualizing research output groupings</li>
-            <li>Animated cluster plot (KMeans) showing how research clusters evolve over time</li>
+            <li><b>Animated cluster plot (KMeans) showing how research clusters evolve over time</b></li>
             <li>Searchable and filterable table preview of top research outputs</li>
             <li>LDA topic modeling insights and word cloud visualization of research themes</li>
             <li>Discrete Event Simulation (DES) conceptual insights on project lifecycle delays</li>
@@ -54,25 +54,30 @@
 
     <section class="tab-content" id="tab-rdc" style="display:none;">
         <h2>Top 10 RDCs by Research Output</h2>
-        <p>The bar chart below highlights the top 10 Research Data Centers (RDCs) by the number of associated research outputs. This provides a broader view of research activity across more centers.</p>
+        <p>The chart below highlights the top 10 Research Data Centers (RDCs) by the number of associated research outputs. This provides a broader view of research activity across more centers.</p>
+        <select class="chart-dropdown" id="rdc-bar-dropdown" style="margin-bottom: 1em;"></select>
         <div id="rdc-bar"></div>
         <h2>Publication Trend Over Years</h2>
-        <p>This line chart illustrates the growth in FSRDC-linked publications over time. There is a noticeable rise in output starting around 2011, with peak publication activity in 2023, suggesting growing utilization of restricted microdata.</p>
+        <p>This chart illustrates the growth in FSRDC-linked publications over time. There is a noticeable rise in output starting around 2011, with peak publication activity in 2023, suggesting growing utilization of restricted microdata.</p>
+        <select class="chart-dropdown" id="pub-trend-dropdown" style="margin-bottom: 1em;"></select>
         <div id="pub-trend"></div>
     </section>
 
     <section class="tab-content" id="tab-authors" style="display:none;">
         <h2>Top 10 Authors</h2>
-        <p>The bar chart shows the top 10 most prolific authors in the FSRDC ecosystem. This gives a more comprehensive look at researcher contributions.</p>
+        <p>The chart shows the top 10 most prolific authors in the FSRDC ecosystem. This gives a more comprehensive look at researcher contributions.</p>
+        <select class="chart-dropdown" id="top-authors-dropdown" style="margin-bottom: 1em;"></select>
         <div id="top-authors"></div>
     </section>
 
     <section class="tab-content" id="tab-clustering" style="display:none;">
         <h2>PCA Projection</h2>
         <p>Principal Component Analysis (PCA) helps visualize the dataset in 2 dimensions based on year and project duration. This projection shows some natural grouping among research outputs.</p>
+        <select class="chart-dropdown" id="pca-plot-dropdown" style="margin-bottom: 1em;"></select>
         <div id="pca-plot"></div>
         <h2>Cluster Visualization</h2>
         <p>Using KMeans clustering on the PCA-transformed data reveals 3 major clusters of research outputs. These clusters may reflect temporal or institutional research behavior patterns.</p>
+        <select class="chart-dropdown" id="cluster-plot-dropdown" style="margin-bottom: 1em;"></select>
         <div id="cluster-plot"></div>
     </section>
 
@@ -105,8 +110,8 @@
 
     <section class="tab-content" id="tab-table" style="display:none;">
         <h2>Top Research Outputs (Preview)</h2>
-        <input type="text" id="searchInput" placeholder="Search by author or year..." onkeyup="filterTable()" style="width:100%;padding:0.5em;margin-bottom:1em;font-size:1em;">
-        <table id="outputTable" border="1" cellpadding="8" cellspacing="0" style="width:100%;border-collapse:collapse;">
+        <input type="text" id="searchInput" placeholder="Search any field..." onkeyup="filterTable()" style="width:100%;padding:0.5em;margin-bottom:1em;font-size:1em;">
+        <table id="outputTable" class="styled-table">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -128,6 +133,7 @@
                 <tr><td>Rural Employment and Economic Development</td><td>2020</td><td>Qingfang Wang</td><td><a href="https://doi.org/10.1016/j.worlddev.2020.105161" target="_blank">Link</a></td></tr>
             </tbody>
         </table>
+        <div id="noResultsMsg" style="display:none;text-align:center;color:#218c5b;font-weight:500;margin-top:1em;">No results found.</div>
     </section>
 
     <section class="tab-content" id="tab-download" style="display:none;">
@@ -159,11 +165,16 @@
     function filterTable() {
         var input = document.getElementById("searchInput").value.toLowerCase();
         var rows = document.querySelectorAll("#outputTable tbody tr");
+        var noResultsMsg = document.getElementById("noResultsMsg");
+        var hasResults = false;
         rows.forEach(row => {
             var year = row.cells[1].textContent.toLowerCase();
             var author = row.cells[2].textContent.toLowerCase();
-            row.style.display = (author.includes(input) || year.includes(input)) ? "" : "none";
+            var title = row.cells[0].textContent.toLowerCase();
+            row.style.display = (author.includes(input) || year.includes(input) || title.includes(input)) ? "" : "none";
+            if (row.style.display === "") hasResults = true;
         });
+        noResultsMsg.style.display = hasResults ? "none" : "block";
     }
 
     // Tab navigation logic
