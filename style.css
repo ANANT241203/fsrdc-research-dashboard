@@ -6,6 +6,10 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+body, p, li, td, th, input, label, span, div, ul, ol {
+    color: #2d3a2e;
+}
+
 header {
     position: relative;
     background: #218c5b;
@@ -178,11 +182,12 @@ ul {
 
 /* Chart Dropdown */
 .chart-dropdown {
-    background: #e6f9ee;
+    background: #e6f9ee url('data:image/svg+xml;utf8,<svg fill="%23218c5b" height="16" viewBox="0 0 20 20" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z"/></svg>') no-repeat right 1em center/1em 1em;
     color: #145c39;
     border: 1.5px solid #b6e2c6;
     border-radius: 12px;
     padding: 0.5em 1.2em;
+    padding-right: 2.5em;
     font-size: 1.05em;
     font-weight: 500;
     margin-bottom: 1.2em;
@@ -206,6 +211,10 @@ ul {
 body.dark-mode {
     background-color: #1a3d2f;
     color: #e6f9ee;
+}
+
+body.dark-mode, body.dark-mode p, body.dark-mode li, body.dark-mode td, body.dark-mode th, body.dark-mode input, body.dark-mode label, body.dark-mode span, body.dark-mode div, body.dark-mode ul, body.dark-mode ol {
+    color: #d2f5e3;
 }
 
 body.dark-mode header {
@@ -296,7 +305,7 @@ body.dark-mode .author-toggle-btn:hover, body.dark-mode .author-toggle-btn:focus
 }
 
 body.dark-mode .chart-dropdown {
-    background: #223f2e;
+    background: #223f2e url('data:image/svg+xml;utf8,<svg fill="%237be495" height="16" viewBox="0 0 20 20" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z"/></svg>') no-repeat right 1em center/1em 1em;
     color: #7be495;
     border: 1.5px solid #2e5c44;
     box-shadow: 0 2px 8px rgba(33,140,91,0.18);
