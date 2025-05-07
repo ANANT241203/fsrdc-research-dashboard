@@ -59,9 +59,59 @@
             </ul>
         </section>
         
+        <section>
+            <h2>Discrete Event Simulation (DES) Insights</h2>
+            <p>To illustrate data flow in the FSRDC ecosystem, we implemented a conceptual Discrete Event Simulation (DES). The simulation models project lifecycles from proposal submission to publication, capturing delays from RDC approval, data access, and analysis.</p>
+            <ul>
+                <li><strong>Entities:</strong> Projects submitted to RDCs</li>
+                <li><strong>Events:</strong> Proposal approval, data access granted, output published</li>
+                <li><strong>Resources:</strong> RDC data specialists and reviewers</li>
+                <li><strong>Key Insight:</strong> Median time from start to output is 3–4 years, with substantial queueing at approval and access stages.</li>
+            </ul>
+            <p>This simulation highlights the importance of streamlining RDC processes to improve research throughput.</p>
+        </section>
+        
     
     
-
+        <section>
+            <h2>Top Research Outputs (Preview)</h2>
+            <input type="text" id="searchInput" placeholder="Search by author or year..." onkeyup="filterTable()" style="width:100%;padding:0.5em;margin-bottom:1em;font-size:1em;">
+            <table id="outputTable" border="1" cellpadding="8" cellspacing="0" style="width:100%;border-collapse:collapse;">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Author (PI)</th>
+                        <th>DOI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Technology Adoption and Employment</td><td>2022</td><td>David H Autor</td><td><a href="https://doi.org/10.1257/pol.20210350" target="_blank">Link</a></td></tr>
+                    <tr><td>Trade Policy Uncertainty and Firm Investment</td><td>2020</td><td>Rodney Ramcharan</td><td><a href="https://doi.org/10.1016/j.jinteco.2020.103328" target="_blank">Link</a></td></tr>
+                    <tr><td>Urban Logistics and Pollution: A Case Study</td><td>2019</td><td>Jose Holguin-Veras</td><td><a href="https://doi.org/10.1016/j.trd.2019.05.012" target="_blank">Link</a></td></tr>
+                    <tr><td>Firm Leverage and Productivity</td><td>2021</td><td>Gordon M Phillips</td><td><a href="https://doi.org/10.1093/rof/rfac021" target="_blank">Link</a></td></tr>
+                    <tr><td>Immigration and Regional Labor Markets</td><td>2023</td><td>Qingfang Wang</td><td><a href="https://doi.org/10.1111/pirs.12749" target="_blank">Link</a></td></tr>
+                    <tr><td>Market Size and Innovation: Evidence from Patents</td><td>2018</td><td>David H Autor</td><td><a href="https://doi.org/10.1093/qje/qjx040" target="_blank">Link</a></td></tr>
+                    <tr><td>The Impact of Medicaid Expansion</td><td>2021</td><td>Rodney Ramcharan</td><td><a href="https://doi.org/10.1016/j.jpubeco.2020.104327" target="_blank">Link</a></td></tr>
+                    <tr><td>Small Business Lending after the Crisis</td><td>2017</td><td>Jose Holguin-Veras</td><td><a href="https://doi.org/10.1016/j.jfi.2017.01.001" target="_blank">Link</a></td></tr>
+                    <tr><td>Productivity Spillovers in the U.S.</td><td>2022</td><td>Gordon M Phillips</td><td><a href="https://doi.org/10.1093/rof/rfab028" target="_blank">Link</a></td></tr>
+                    <tr><td>Rural Employment and Economic Development</td><td>2020</td><td>Qingfang Wang</td><td><a href="https://doi.org/10.1016/j.worlddev.2020.105161" target="_blank">Link</a></td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <script>
+        function filterTable() {
+            var input = document.getElementById("searchInput").value.toLowerCase();
+            var rows = document.querySelectorAll("#outputTable tbody tr");
+            rows.forEach(row => {
+                var year = row.cells[1].textContent.toLowerCase();
+                var author = row.cells[2].textContent.toLowerCase();
+                row.style.display = (author.includes(input) || year.includes(input)) ? "" : "none";
+            });
+        }
+        </script>
+        
     <section>
         <h2>Data Sources & Tools</h2>
         <ul>
@@ -69,10 +119,10 @@
             <li>Python Libraries: pandas, scikit-learn, seaborn, matplotlib, Plotly</li>
             <li>JavaScript Visualization: Plotly.js</li>
             <li>Hosted with GitHub Pages</li>
-            <section>
+           
                 <h2>Download Enriched Dataset</h2>
                 <p><a href="ResearchOutputs_Group3.csv" download>📥 Click here to download the enriched dataset used in this dashboard (CSV format)</a></p>
-            </section>
+            
             
         </ul>
     </section>
