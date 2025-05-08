@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     // --- All Plotly plots ---
     Plotly.newPlot('rdc-bar', [{
-        x: ["Boston", "Michigan", "Chicago", "Triangle", "Baruch", "Atlanta", "Texas", "UCLA", "Minnesota", "Cornell"],
-        y: [238, 149, 121, 105, 98, 94, 58, 57, 56, 53],
+        x: ["Boston", "Michigan", "Baruch", "Penn State", "Triangle", "Stanford", "Chicago", "Atlanta", "UIUC", "Kentucky"],
+        y: [1444, 1342, 970, 869, 752, 725, 652, 551, 410, 351],
         type: 'bar',
         marker: {color: 'steelblue'}
     }], {
@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", function() {
         mode: 'lines+markers',
         marker: {color: 'crimson'}
     }], {
-        title: 'Publication Trend Over Years',
+        title: 'Number of Publications per Year',
         xaxis: {title: 'Year'},
         yaxis: {title: 'Publications'}
     });
 
     Plotly.newPlot('top-authors', [{
-        x: ["David H Autor", "Rodney Ramcharan", "Jose Holguin-Veras, Yao Liu, Francine Lafontaine", "Gordon M Phillips", "Qingfang Wang", "Kristina S Steffenson McElheran", "William R Walker", "Sarah M Miller", "Nicolas Crouzet", "Chang-Tai Hsieh"],
-        y: [46, 30, 26, 22, 22, 20, 20, 19, 19, 19],
+        x: ["J. Wang", "Z. Wang", "Y. Zhang", "J. Lee", "L. Zhang", "M. Finger", "Y. Chen", "A. Sharma", "S. Bhattacharya", "H. Kim"],
+        y: [682, 485, 343, 323, 311, 294, 293, 288, 277, 264],
         type: 'bar',
         marker: {color: 'darkgreen'}
     }], {
@@ -47,6 +47,45 @@ document.addEventListener("DOMContentLoaded", function() {
         title: 'PCA Projection of Research Outputs',
         xaxis: {title: 'Principal Component 1'},
         yaxis: {title: 'Principal Component 2'}
+    });
+
+    // Add new chart for publication trends over time for top 5 RDCs
+    Plotly.newPlot('top-rdc-trends', [
+        {
+            x: [1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [0, 0, 5, 18, 21, 21, 1, 1, 1, 2, 11, 21, 28, 12, 20, 28, 13, 17, 11, 59, 78, 71, 60, 104, 83, 93, 98, 99, 182, 84, 107, 86, 9],
+            name: 'Boston',
+            type: 'bar'
+        },
+        {
+            x: [1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [1, 0, 3, 2, 0, 1, 1, 1, 0, 5, 2, 15, 13, 12, 22, 19, 7, 8, 13, 41, 32, 32, 40, 78, 67, 84, 124, 84, 176, 108, 240, 100, 11],
+            name: 'Michigan',
+            type: 'bar'
+        },
+        {
+            x: [1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [0, 0, 0, 6, 0, 8, 6, 18, 9, 11, 3, 5, 11, 21, 34, 23, 17, 8, 23, 54, 42, 39, 40, 43, 51, 46, 64, 60, 167, 50, 74, 33, 4],
+            name: 'Baruch',
+            type: 'bar'
+        },
+        {
+            x: [1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [0, 0, 0, 2, 0, 0, 1, 1, 1, 4, 1, 13, 24, 16, 6, 6, 6, 3, 6, 35, 30, 28, 52, 41, 50, 60, 79, 50, 102, 48, 128, 63, 13],
+            name: 'Penn State',
+            type: 'bar'
+        },
+        {
+            x: [1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 2, 4, 6, 1, 4, 5, 26, 36, 41, 45, 44, 43, 42, 41, 43, 87, 61, 139, 73, 5],
+            name: 'Triangle',
+            type: 'bar'
+        }
+    ], {
+        title: 'Publication Trends Over Time for Top 5 RDCs',
+        xaxis: {title: 'Year'},
+        yaxis: {title: 'Count'},
+        barmode: 'group'
     });
 
     // --- Animated Cluster Plot ---
@@ -421,8 +460,8 @@ document.addEventListener("DOMContentLoaded", function() {
     ], function(type) {
         let mode = type === 'line' ? 'lines+markers' : (type === 'scatter' ? 'markers' : undefined);
         Plotly.newPlot('rdc-bar', [{
-            x: ["Boston", "Michigan", "Chicago", "Triangle", "Baruch", "Atlanta", "Texas", "UCLA", "Minnesota", "Cornell"],
-            y: [238, 149, 121, 105, 98, 94, 58, 57, 56, 53],
+            x: ["Boston", "Michigan", "Baruch", "Penn State", "Triangle", "Stanford", "Chicago", "Atlanta", "UIUC", "Kentucky"],
+            y: [1444, 1342, 970, 869, 752, 725, 652, 551, 410, 351],
             type: type,
             mode: mode,
             marker: {color: type === 'bar' ? 'steelblue' : '#218c5b'}
@@ -447,7 +486,7 @@ document.addEventListener("DOMContentLoaded", function() {
             mode: mode,
             marker: {color: type === 'bar' ? 'crimson' : '#218c5b'}
         }], {
-            title: 'Publication Trend Over Years (' + type.charAt(0).toUpperCase() + type.slice(1) + ')',
+            title: 'Number of Publications per Year (' + type.charAt(0).toUpperCase() + type.slice(1) + ')',
             xaxis: {title: 'Year'},
             yaxis: {title: 'Publications'}
         });
@@ -461,8 +500,8 @@ document.addEventListener("DOMContentLoaded", function() {
     ], function(type) {
         let mode = type === 'line' ? 'lines+markers' : (type === 'scatter' ? 'markers' : undefined);
         Plotly.newPlot('top-authors', [{
-            x: ["David H Autor", "Rodney Ramcharan", "Jose Holguin-Veras, Yao Liu, Francine Lafontaine", "Gordon M Phillips", "Qingfang Wang", "Kristina S Steffenson McElheran", "William R Walker", "Sarah M Miller", "Nicolas Crouzet", "Chang-Tai Hsieh"],
-            y: [46, 30, 26, 22, 22, 20, 20, 19, 19, 19],
+            x: ["J. Wang", "Z. Wang", "Y. Zhang", "J. Lee", "L. Zhang", "M. Finger", "Y. Chen", "A. Sharma", "S. Bhattacharya", "H. Kim"],
+            y: [682, 485, 343, 323, 311, 294, 293, 288, 277, 264],
             type: type,
             mode: mode,
             marker: {color: type === 'bar' ? 'darkgreen' : '#218c5b'}
