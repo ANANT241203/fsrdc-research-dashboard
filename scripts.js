@@ -812,6 +812,22 @@ const pcaOutputType = [
         marker: { size: 7, color: '#9467bd' }
     }
 ];
+// --- DES Bottleneck Timeline Visualization ---
+const desStages = ['Proposal Approval', 'Data Access Granted', 'Analysis & Review', 'Publication'];
+const desDurations = [12, 18, 10, 8]; // example values: months spent at each stage
+const desColors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'];
+
+Plotly.newPlot('des-plot', [{
+    x: desStages,
+    y: desDurations,
+    type: 'bar',
+    marker: {color: desColors}
+}], {
+    title: 'Simulated Median Duration per Project Stage (DES)',
+    xaxis: {title: 'Project Lifecycle Stage'},
+    yaxis: {title: 'Median Duration (Months)'}
+});
+
 
     // --- PCA/Clustering Dropdown Logic ---
     setupChartDropdown('pca-plot-dropdown', 'pca-plot', [
