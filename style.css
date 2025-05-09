@@ -450,3 +450,16 @@ body.dark-mode .tab-content h2 {
 body.dark-mode .tab-content p {
     color: #d4f3e1;
 }
+/* DES Chart Container */
+#des-plot {
+    max-width: 800px;
+    margin: 0 auto 2em auto;
+    box-shadow: 0 2px 8px rgba(33,140,91,0.08);
+    border-radius: 14px;
+    background: #ffffff;
+    padding: 1em;
+}
+body.dark-mode #des-plot {
+    background: #223f2e;
+    box-shadow: 0 2px 8px rgba(123,228,149,0.12);
+}
