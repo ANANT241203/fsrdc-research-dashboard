@@ -877,4 +877,34 @@ const pcaOutputType = [
             }
         }
     });
+
+    // Load word frequencies and render interactive word cloud
+    fetch('fsrdc_word_freq.json')
+      .then(response => response.json())
+      .then(wordFreq => {
+        const wordList = Object.entries(wordFreq).map(([word, freq]) => [word, freq]);
+        WordCloud(document.getElementById('interactive-wordcloud'), {
+          list: wordList,
+          gridSize: 12,
+          weightFactor: 8,
+          fontFamily: 'Segoe UI, sans-serif',
+          color: '#218c5b',
+          backgroundColor: 'transparent',
+          rotateRatio: 0.2,
+          click: function(item) {
+            alert(item[0] + ': ' + item[1] + ' occurrences');
+          },
+          hover: function(item, dimension, event) {
+            const tooltip = document.getElementById('wordcloud-tooltip');
+            if (item) {
+              tooltip.style.display = 'block';
+              tooltip.style.left = (event.pageX + 10) + 'px';
+              tooltip.style.top = (event.pageY - 20) + 'px';
+              tooltip.textContent = item[0] + ': ' + item[1];
+            } else {
+              tooltip.style.display = 'none';
+            }
+          }
+        });
+      });
 });

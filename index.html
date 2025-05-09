@@ -5,6 +5,8 @@
     <title>FSRDC Research Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Add wordcloud2.js for interactive word cloud -->
+    <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.min.js"></script>
 </head>
 <body>
     <header>
@@ -113,7 +115,22 @@
 
     <section class="tab-content" id="tab-topics" style="display:none;">
         <h2>Topic Modeling Insights</h2>
-        <p>We applied Latent Dirichlet Allocation (LDA) to uncover latent research themes from publication titles. The model identified five prominent topics:</p>
+        <p>We applied Latent Dirichlet Allocation (LDA) and TF-IDF KMeans clustering to analyze research titles and uncover major themes in FSRDC research outputs. <br><br>
+        <b>LDA topic modeling</b> identified five prominent research themes, including:
+        <ul>
+            <li>Housing, inequality, and urban development</li>
+            <li>Gender gaps and STEM education outcomes</li>
+            <li>COVID-19 and small business impact</li>
+            <li>Economic shocks and unemployment</li>
+            <li>Healthcare access and rural policy</li>
+        </ul>
+        <b>TF-IDF KMeans clustering</b> grouped titles by semantic similarity, surfacing clusters such as:
+        <ul>
+            <li>Titles focused on housing, income, and urban inequality</li>
+            <li>Research related to public health, rural access, or healthcare policy</li>
+            <li>Studies on labor markets, job mobility, and economic shocks</li>
+        </ul>
+        These methods provide a powerful lens for exploring research focus areas and recurring themes in thousands of outputs. The topic lists and word cloud below summarize the most frequent and important terms in the FSRDC research corpus.</p>
         <div id="lda-topic-list">
             <div class="lda-topic"><strong>Topic 1:</strong> effects, insurance, level, health, census, firms, data, evidence</div>
             <div class="lda-topic"><strong>Topic 2:</strong> market, essays, business, innovation, productivity, labor, firm, firms</div>
@@ -121,9 +138,11 @@
             <div class="lda-topic"><strong>Topic 4:</strong> market, states, united, earnings, new, evidence, income, labor</div>
             <div class="lda-topic"><strong>Topic 5:</strong> employment, industry, energy, market, dynamics, evidence, performance, firm</div>
         </div>
+        <br><br>
         <h2>Topic Modeling Word Cloud</h2>
-        <p>This word cloud visualizes the most prominent terms identified through LDA topic modeling of research titles. Larger words appear more frequently across top topics.</p>
-        <img src="lda_wordcloud.png" alt="Word Cloud of LDA Topics" style="width:100%;max-width:800px;display:block;margin:auto;">
+        <p>This word cloud visualizes the most prominent terms identified through LDA topic modeling of research titles. Larger words appear more frequently across top topics, reflecting the main research areas in the FSRDC corpus.</p>
+        <canvas id="interactive-wordcloud" width="800" height="400" style="display:block;margin:auto;"></canvas>
+        <div id="wordcloud-tooltip" style="position:absolute;display:none;background:#fff;color:#218c5b;padding:4px 8px;border-radius:6px;box-shadow:0 2px 8px rgba(33,140,91,0.10);font-size:1.1em;z-index:1000;"></div>
     </section>
 
     <section class="tab-content" id="tab-des" style="display:none;">
