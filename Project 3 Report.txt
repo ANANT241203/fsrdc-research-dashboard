@@ -4,44 +4,6 @@
 Haoxuan Wu (hxwu@seas.upenn.edu); Anant Aggarwal (anant24@seas.upenn.edu); Gina Kim (kimgina@seas.upenn.edu); Jiayang Li (reggieli@seas.upenn.edu); Yesol Kim (yesolkim@seas.upenn.edu); Bliss Zheng (blissz@seas.upenn.edu)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Part 1 Input Processing
 
 
