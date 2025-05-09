@@ -94,19 +94,16 @@
         <h2>PCA & Clustering Visualizations</h2>
         <p>Explore different 2D projections and clusterings of the research outputs. Use the dropdowns to switch between PCA by OutputType, KMeans (3/4 clusters), DBSCAN, and TF-IDF KMeans text clusters.</p>
         <label for="pca-plot-dropdown"><b>PCA/Cluster Plot Type:</b></label>
-        <select class="chart-dropdown" id="pca-plot-dropdown" style="margin-bottom: 1em;">
-            <option value="pca-outputtype">PCA by Output Type</option>
-            <option value="kmeans-3">KMeans (3 clusters)</option>
-            <option value="kmeans-4">KMeans (4 clusters)</option>
-            <option value="dbscan">DBSCAN</option>
-            <option value="tfidf-kmeans">TF-IDF KMeans (Text Clusters)</option>
-        </select>
+        <select class="chart-dropdown" id="pca-plot-dropdown" style="margin-bottom: 1em;"></select>
         <div id="pca-plot"></div>
         <div id="tfidf-kmeans-section" style="display:none;">
             <h3>TF-IDF KMeans Text Clustering</h3>
             <p>This plot shows clusters based on KMeans applied to TF-IDF features of research titles, revealing thematic groupings in the text.</p>
             <div id="tfidf-kmeans-plot"></div>
         </div>
+        <label for="cluster-plot-dropdown"><b>Animated Cluster Plot:</b></label>
+        <select class="chart-dropdown" id="cluster-plot-dropdown" style="margin-bottom: 1em;"></select>
+        <div id="cluster-plot"></div>
     </section>
 
     <section class="tab-content" id="tab-topics" style="display:none;">
@@ -220,7 +217,7 @@
     });
     </script>
 
-    <script src="scripts.js?v=3"></script>
+    <script type="module" src="scripts.js"></script>
 
 </body>
 </html>
