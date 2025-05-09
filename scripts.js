@@ -878,23 +878,3 @@ const pcaOutputType = [
         }
     });
 });
-// --- EDA, Clustering, PCA, and Text Analysis logic below is fully aligned with the project report ---
-// Each major plot and dropdown is labeled and described per the report's findings and methodology.
-// Key findings and cluster/topic interpretations are included as comments for maintainability.
-
-// --- Top RDCs, Authors, Publication Trends ---
-// See dropdowns and plot titles for insight text (e.g., Boston/Michigan concentration, author name patterns, data cutoff for 2024/2025)
-
-// --- PCA & Clustering ---
-// KMeans (k=3): Best separation; clusters: (0) Long-term journal projects (NY/CA RDCs), (1) Short-term/draft projects, (2) Specialized outputs
-// KMeans (k=4): More granular, distinguishes in-progress reports and published articles
-// DBSCAN: Isolates outliers/edge cases (unusual durations, page counts, RDCs)
-
-// --- TF-IDF KMeans & LDA Topic Modeling ---
-// TF-IDF KMeans clusters: A) Housing/inequality, B) Public health/rural access, C) Labor markets/economic shocks
-// LDA topics: housing/urban, gender/STEM, COVID-19/small business, economic shocks, healthcare/rural policy
-
-// --- DES ---
-// DES plot: Median time from project start to publication is 3–4 years; bottlenecks at approval/data access
-
-// --- All plot titles, axis labels, and dropdowns match the updated index.html and project report ---

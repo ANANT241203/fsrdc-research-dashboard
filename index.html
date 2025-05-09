@@ -10,7 +10,7 @@
     <header>
         <button class="toggle-btn" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
         <h1>FSRDC Research Output Dashboard</h1>
-        <p>An interactive visualization of U.S. Census FSRDC-linked research outputs, enriched and analyzed using advanced data science techniques. This dashboard reflects the full pipeline described in the project report, including data cleaning, enrichment, EDA, clustering, PCA, classification, text analysis, topic modeling, and discrete event simulation (DES).</p>
+        <p>An interactive visualization of U.S. Census FSRDC-linked research outputs</p>
     </header>
 
     <nav class="tab-nav">
@@ -27,19 +27,16 @@
     <section class="tab-content summary-card" id="tab-summary">
         <h2>Project Summary</h2>
         <div class="summary-block">
-            <p class="summary-lead"><strong>Dashboard Features & Methodology:</strong></p>
+            <p class="summary-lead"><strong>Dashboard Features:</strong></p>
             <ul class="summary-list">
-                <li>Comprehensive data cleaning, deduplication, and enrichment (Crossref/OpenAlex APIs, project metadata join, robust error handling)</li>
-                <li>Interactive bar chart of the top 10 RDCs by research output, highlighting concentration in Boston and Michigan</li>
-                <li>Line chart showing publication trends over the years, with notes on data cutoff for 2024/2025</li>
-                <li>Toggleable bar/line chart of the top 10 most prolific authors, with insight on author name concentration</li>
-                <li>Co-authorship network insights, showing top author pairs and collaboration patterns</li>
-                <li>2D PCA projection plot visualizing research output groupings (OutputType_x and metadata features)</li>
-                <li>Animated cluster plot (KMeans, k=3/4) and DBSCAN, with cluster interpretations (long-term journal projects, short-term drafts, specialized outputs)</li>
-                <li>Classification with SMOTE and Random Forest, dropping rare classes for robust modeling</li>
-                <li>TF-IDF KMeans text clustering and LDA topic modeling on OutputTitle, with thematic summaries and word cloud</li>
-                <li>DES simulation of project lifecycle, showing median 3–4 year time to publication and bottlenecks at approval/data access</li>
+                <li>Interactive bar chart of the top 10 RDCs by research output</li>
+                <li>Line chart showing publication trends over the years</li>
+                <li>Toggleable bar/line chart of the top 10 most prolific authors</li>
+                <li>2D PCA projection plot visualizing research output groupings</li>
+                <li><b>Animated cluster plot (KMeans) showing how research clusters evolve over time</b></li>
                 <li>Searchable and filterable table preview of top research outputs</li>
+                <li>LDA topic modeling insights and word cloud visualization of research themes</li>
+                <li>Discrete Event Simulation (DES) conceptual insights on project lifecycle delays</li>
                 <li>Download link for the enriched dataset (CSV)</li>
                 <li>Dark mode/light mode toggle for accessibility</li>
                 <li>Team member and data/tool information sections</li>
@@ -48,22 +45,20 @@
         <div class="summary-block">
             <p class="summary-lead"><strong>Key Results & Insights:</strong></p>
             <ul class="summary-list">
-                <li><b>Top RDCs:</b> Boston and Michigan lead in research output, with a sharp drop after the top 5 RDCs, indicating concentration in leading institutions.</li>
-                <li><b>Publication Trends:</b> Steady growth since 2011, peaking in 2023; sharp drop in 2024/2025 likely due to data cutoff.</li>
-                <li><b>Authors:</b> High concentration among a few prolific authors (notably J. Wang, Z. Wang, Y. Zhang), with common surnames suggesting research groups or teams.</li>
-                <li><b>Co-Authorship:</b> Top pairs have 6–8 joint publications, indicating strong but distributed collaboration networks.</li>
-                <li><b>PCA & Clustering:</b> Three main research clusters (long-term journal projects, short-term drafts, specialized outputs); DBSCAN isolates outliers and edge cases.</li>
-                <li><b>Classification:</b> OutputType_x as target, rare classes dropped, SMOTE for balancing, Random Forest for robust multi-class prediction.</li>
-                <li><b>Text Analysis:</b> TF-IDF KMeans and LDA reveal themes: housing/inequality, public health, labor markets, COVID-19, economic shocks, healthcare/rural policy.</li>
-                <li><b>DES:</b> Median time from project start to publication is 3–4 years, with bottlenecks at approval and data access stages.</li>
-                <li>The dashboard provides a comprehensive, interactive view of FSRDC-linked research, supporting further exploration and analysis.</li>
+                <li>The Boston RDC leads in research output, followed by Michigan and Chicago</li>
+                <li>Publication activity has grown steadily since 2011, peaking in 2023</li>
+                <li>The most prolific author is David H Autor, with 46 outputs</li>
+                <li>PCA and clustering reveal three main research clusters, suggesting distinct research communities or institutional patterns</li>
+                <li>LDA topic modeling identified five major research themes: Health & Labor Economics, Firms & Innovation, High-Energy Physics, Gravitational Wave Science, and technical/markup artifacts</li>
+                <li>DES simulation suggests the median time from project start to publication is 3–4 years, with bottlenecks at approval and data access stages</li>
+                <li>The dashboard provides a comprehensive, interactive view of FSRDC-linked research, supporting further exploration and analysis</li>
             </ul>
         </div>
     </section>
 
     <section class="tab-content" id="tab-rdc" style="display:none;">
         <h2>Top 10 RDCs by Research Output</h2>
-        <p>The chart below highlights the top 10 Research Data Centers (RDCs) by the number of associated research outputs. <b>Boston and Michigan are clear leaders</b>, with a notable drop after the top 5, indicating a concentration of research output within these leading institutions. The average research outputs per RDC is 806.6.</p>
+        <p>The chart below highlights the top 10 Research Data Centers (RDCs) by the number of associated research outputs. Boston leads with 1,444 outputs, followed by Michigan (1,342), Baruch (970), Penn State (869), Triangle (752), Stanford (725), Chicago (652), Atlanta (551), UIUC (410), and Kentucky (351). The average research outputs per RDC is 806.6.</p>
         <h3>Top Co-Author Pairs</h3>
         <ul>
             <li>Mariko Sakakibara & Natarajan Balasubramanian: 8</li>
@@ -80,61 +75,62 @@
         <select class="chart-dropdown" id="rdc-bar-dropdown" style="margin-bottom: 1em;"></select>
         <div id="rdc-bar"></div>
         <h2>Publication Trend Over Years</h2>
-        <p>This chart illustrates the growth in FSRDC-linked publications over time. There is a noticeable rise in output starting around 2011, with peak publication activity in 2023. <b>Sharp declines in 2024 and 2025 are due to incomplete data for these years.</b> No citation data available.</p>
+        <p>This chart illustrates the growth in FSRDC-linked publications over time. There is a noticeable rise in output starting around 2011, with peak publication activity in 2023. No citation data available.</p>
         <select class="chart-dropdown" id="pub-trend-dropdown" style="margin-bottom: 1em;"></select>
         <div id="pub-trend"></div>
         <h2>Publication Trends Over Time for Top 5 RDCs</h2>
-        <p>This chart shows yearly publication counts for the top 5 RDCs, allowing comparison of their research output trends over time. <b>Michigan and Boston show the most dramatic growth in recent years.</b></p>
+        <p>This chart shows yearly publication counts for the top 5 RDCs, allowing comparison of their research output trends over time.</p>
         <div id="top-rdc-trends"></div>
     </section>
 
     <section class="tab-content" id="tab-authors" style="display:none;">
         <h2>Top 10 Authors</h2>
-        <p>The chart shows the top 10 most prolific authors in the FSRDC ecosystem. <b>J. Wang leads with 682 publications</b>, followed by Z. Wang (485), Y. Zhang (343), J. Lee (323), L. Zhang (311), M. Finger (294), Y. Chen (293), A. Sharma (288), S. Bhattacharya (277), and H. Kim (264). <b>High concentration among a few authors, with common surnames suggesting research groups or teams.</b></p>
+        <p>The chart shows the top 10 most prolific authors in the FSRDC ecosystem. J. Wang leads with 682 publications, followed by Z. Wang (485), Y. Zhang (343), J. Lee (323), L. Zhang (311), M. Finger (294), Y. Chen (293), A. Sharma (288), S. Bhattacharya (277), and H. Kim (264).</p>
         <select class="chart-dropdown" id="top-authors-dropdown" style="margin-bottom: 1em;"></select>
         <div id="top-authors"></div>
     </section>
 
     <section class="tab-content" id="tab-clustering" style="display:none;">
         <h2>PCA & Clustering Visualizations</h2>
-        <p>Explore different 2D projections and clusterings of the research outputs. Use the dropdowns to switch between PCA by OutputType_x, KMeans (3/4 clusters), DBSCAN, and TF-IDF KMeans text clusters. <b>PCA did not reveal clear clusters by output type, but KMeans and DBSCAN uncovered meaningful groupings:</b></p>
-        <ul>
-            <li><b>KMeans (k=3):</b> Best separation (highest silhouette score). Clusters: (0) Long-term journal projects (NY/CA RDCs), (1) Short-term/draft projects (working papers/reports), (2) Specialized outputs (dissertations, region-specific).</li>
-            <li><b>KMeans (k=4):</b> More granular, distinguishes in-progress reports and published articles.</li>
-            <li><b>DBSCAN:</b> Isolates outliers and edge cases (unusual durations, page counts, or RDCs).</li>
-        </ul>
+        <p>Explore different 2D projections and clusterings of the research outputs. Use the dropdowns to switch between PCA by OutputType, KMeans (3/4 clusters), DBSCAN, and TF-IDF KMeans text clusters.</p>
         <label for="pca-plot-dropdown"><b>PCA/Cluster Plot Type:</b></label>
         <select class="chart-dropdown" id="pca-plot-dropdown" style="margin-bottom: 1em;"></select>
         <div id="pca-plot"></div>
         <div id="tfidf-kmeans-section" style="display:none;">
             <h3>TF-IDF KMeans Text Clustering</h3>
-            <p>Titles are grouped by semantic similarity using TF-IDF and KMeans (k=5). Example clusters:</p>
-            <ul>
-                <li><b>Cluster A:</b> Housing, income, urban inequality</li>
-                <li><b>Cluster B:</b> Public health, rural access, healthcare policy</li>
-                <li><b>Cluster C:</b> Labor markets, job mobility, economic shocks</li>
-            </ul>
+            <p>This plot shows clusters based on KMeans applied to TF-IDF features of research titles, revealing thematic groupings in the text.</p>
             <div id="tfidf-kmeans-plot"></div>
         </div>
+        <label for="cluster-plot-dropdown"><b>Animated Cluster Plot:</b></label>
+        <select class="chart-dropdown" id="cluster-plot-dropdown" style="margin-bottom: 1em;"></select>
+        <div id="cluster-plot"></div>
     </section>
 
     <section class="tab-content" id="tab-topics" style="display:none;">
-        <h2>Topic Modeling & Word Cloud</h2>
-        <p>Latent Dirichlet Allocation (LDA) was used to extract 5 major research themes from OutputTitle. Top topics:</p>
-        <ul>
-            <li>Housing, inequality, and urban development</li>
-            <li>Gender gaps and STEM education outcomes</li>
-            <li>COVID-19 and small business impact</li>
-            <li>Economic shocks and unemployment</li>
-            <li>Healthcare access and rural policy</li>
-        </ul>
-        <div id="lda-wordcloud"></div>
+        <h2>Topic Modeling Insights</h2>
+        <p>We applied Latent Dirichlet Allocation (LDA) to uncover latent research themes from publication titles. The model identified five prominent topics:</p>
+        <div id="lda-topic-list">
+            <div class="lda-topic"><strong>Topic 1:</strong> effects, insurance, level, health, census, firms, data, evidence</div>
+            <div class="lda-topic"><strong>Topic 2:</strong> market, essays, business, innovation, productivity, labor, firm, firms</div>
+            <div class="lda-topic"><strong>Topic 3:</strong> plant, effects, business, manufacturing, evidence, productivity, international, trade</div>
+            <div class="lda-topic"><strong>Topic 4:</strong> market, states, united, earnings, new, evidence, income, labor</div>
+            <div class="lda-topic"><strong>Topic 5:</strong> employment, industry, energy, market, dynamics, evidence, performance, firm</div>
+        </div>
+        <h2>Topic Modeling Word Cloud</h2>
+        <p>This word cloud visualizes the most prominent terms identified through LDA topic modeling of research titles. Larger words appear more frequently across top topics.</p>
+        <img src="lda_wordcloud.png" alt="Word Cloud of LDA Topics" style="width:100%;max-width:800px;display:block;margin:auto;">
     </section>
 
     <section class="tab-content" id="tab-des" style="display:none;">
         <h2>Discrete Event Simulation (DES) Insights</h2>
-        <p>The DES simulation models the project lifecycle from start to publication. <b>Median time from project start to publication is 3–4 years</b>, with bottlenecks at approval and data access stages. This highlights the importance of streamlining these phases to accelerate research output.</p>
-        <div id="des-plot"></div>
+        <p>To illustrate data flow in the FSRDC ecosystem, we implemented a conceptual Discrete Event Simulation (DES). The simulation models project lifecycles from proposal submission to publication, capturing delays from RDC approval, data access, and analysis.</p>
+        <ul>
+            <li><strong>Entities:</strong> Projects submitted to RDCs</li>
+            <li><strong>Events:</strong> Proposal approval, data access granted, output published</li>
+            <li><strong>Resources:</strong> RDC data specialists and reviewers</li>
+            <li><strong>Key Insight:</strong> Median time from start to output is 3–4 years, with substantial queueing at approval and access stages.</li>
+        </ul>
+        <p>This simulation highlights the importance of streamlining RDC processes to improve research throughput.</p>
     </section>
 
     <section class="tab-content" id="tab-table" style="display:none;">
@@ -155,6 +151,10 @@
                 <tr><td>Urban Logistics and Pollution: A Case Study</td><td>2019</td><td>Jose Holguin-Veras</td><td><a href="https://doi.org/10.1016/j.trd.2019.05.012" target="_blank">Link</a></td></tr>
                 <tr><td>Firm Leverage and Productivity</td><td>2021</td><td>Gordon M Phillips</td><td><a href="https://doi.org/10.1093/rof/rfac021" target="_blank">Link</a></td></tr>
                 <tr><td>Immigration and Regional Labor Markets</td><td>2023</td><td>Qingfang Wang</td><td><a href="https://doi.org/10.1111/pirs.12749" target="_blank">Link</a></td></tr>
+                <tr><td>Market Size and Innovation: Evidence from Patents</td><td>2018</td><td>David H Autor</td><td><a href="https://doi.org/10.1093/qje/qjx040" target="_blank">Link</a></td></tr>
+                <tr><td>The Impact of Medicaid Expansion</td><td>2021</td><td>Rodney Ramcharan</td><td><a href="https://doi.org/10.1016/j.jpubeco.2020.104327" target="_blank">Link</a></td></tr>
+                <tr><td>Small Business Lending after the Crisis</td><td>2017</td><td>Jose Holguin-Veras</td><td><a href="https://doi.org/10.1016/j.jfi.2017.01.001" target="_blank">Link</a></td></tr>
+                <tr><td>Productivity Spillovers in the U.S.</td><td>2022</td><td>Gordon M Phillips</td><td><a href="https://doi.org/10.1093/rof/rfab028" target="_blank">Link</a></td></tr>
                 <tr><td>Rural Employment and Economic Development</td><td>2020</td><td>Qingfang Wang</td><td><a href="https://doi.org/10.1016/j.worlddev.2020.105161" target="_blank">Link</a></td></tr>
             </tbody>
         </table>
