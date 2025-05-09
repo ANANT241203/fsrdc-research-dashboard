@@ -54,12 +54,17 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Light mode footer text fix */
 footer {
-    background: #145c39;
-    color: #fff;
+    background: #22543d; /* keep or modify your dark green shade */
+    color: #ffffff; /* force bright white text */
     text-align: center;
     padding: 1em;
     margin-top: 4em;
+}
+footer p {
+    margin: 0;
+    color: #ffffff; /* force bright white text */
 }
 
 ul {
