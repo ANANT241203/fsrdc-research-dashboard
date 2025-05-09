@@ -1,0 +1,352 @@
+﻿CIT5900 Project 2 Report Group 3
+
+
+Haoxuan Wu (hxwu@seas.upenn.edu); Anant Aggarwal (anant24@seas.upenn.edu); Gina Kim (kimgina@seas.upenn.edu); Jiayang Li (reggieli@seas.upenn.edu); Yesol Kim (yesolkim@seas.upenn.edu); Bliss Zheng (blissz@seas.upenn.edu)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Part 1 Input Processing
+
+
+Question 1
+1. Initial Cleaning & Deduplication
+
+   * Read all eight group*.csv files into pandas, auto-detecting each file’s title and DOI columns.
+
+   * Dropped any row missing a DOI or title, then concatenated these “Title/DOI” subsets and deduplicated on (DOI, Title) to ensure uniqueness.
+
+      2. Project‐Level Enrichment
+
+         * Loaded the “All Metadata” sheet from ProjectsAllMetadata.xlsx, selected and renamed its project fields (Proj ID→ProjID, Status→ProjectStatus, etc.).
+
+         * Left-joined on publication Title so that matched records inherited their FSRDC project metadata. Unmatched rows (null ProjID) were removed as non-FSRDC.
+
+            3. External API Enrichment with Rate-Limit Delays
+
+               * For each unique DOI, we hit the Crossref API to pull bibliographic fields (OutputTitle, OutputBiblio, OutputType, OutputStatus, OutputVenue, OutputYear, OutputMonth, OutputVolume, OutputNumber, OutputPages).
+
+               * When author lists were incomplete, we fell back to OpenAlex for full author names.
+
+               * To avoid being blocked, we:
+
+                  * Inserted a small time.sleep(random.uniform(0.5, 1.5)) between requests;
+
+                  * Batched calls and limited concurrency (e.g. ThreadPoolExecutor(max_workers=5) rather than 10);
+
+                  * Implemented exponential back-off retries on HTTP 429 or 503 responses;
+
+                  * Cached responses locally so re-runs don’t re-query the same DOI.
+
+                     4. Filtering Out Irrelevant or Malformed Records
+
+                        * Dropped any row with an empty OutputBiblio.
+
+                        * Regex-validated OutputPages (allowing only empty, numeric, or numeric-range).
+
+                        * Discarded rows whose total column count exceeded our expected schema (18 columns).
+
+By combining pandas joins, Crossref/OpenAlex calls, and a built-in delay/back-off strategy, we ensured both completeness of metadata and respectful API usage—resulting in a clean set of truly FSRDC-related research outputs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Question 2
+Part 1 Q2 Part 1. Code Design and Walkthrough
+This section outlines the structure and functionality of the Python script, detailing its components and how they contribute to the overall analysis.
+Objective
+The primary objective of this Python script is to perform an Exploratory Data Analysis (EDA) on a dataset of research outputs, presumably from FSRDCs or similar research institutions, stored in "ResearchOutputs_Group3.csv". The script aims to:
+                           1. Load and preprocess the research publication data.
+                           2. Identify and quantify key research areas (RDCs) and prolific authors.
+                           3. Visualize publication trends over time.
+                           4. Provide insights into publication citation metrics.
+                           5. Uncover collaboration patterns through co-authorship analysis.
+                           6. Examine the temporal trends of top research areas.
+Core Libraries Used
+                           * pandas: Utilized for data manipulation and analysis, primarily through its DataFrame structures. It's crucial for loading, cleaning, and aggregating the data.
+                           * matplotlib.pyplot: A fundamental plotting library used to create static, interactive, and animated visualizations in Python.
+                           * seaborn: Built on top of matplotlib, this library provides a high-level interface for drawing attractive and informative statistical graphics, simplifying the creation of complex plots.
+                           * collections.Counter: A specialized dictionary subclass used for counting hashable objects. It's efficiently used here to count occurrences of RDCs, authors, and co-author pairs.
+                           * itertools.combinations: Provides functions for creating iterators for efficient looping. The combinations tool is specifically used to generate unique pairs of authors for co-authorship analysis.
+                           * os: This module provides a way of using operating system dependent functionality, here used to check for the existence of the input data file.
+Functional Breakdown
+The script is modular, with distinct functions for each step of the analysis:
+                           1. load_data(filepath):
+                           * Purpose: To load the research output data from the specified CSV file into a pandas DataFrame.
+                           * Mechanism: Uses pd.read_csv(filepath) to read the data.
+                           * Input: filepath (string) - path to the CSV file.
+                           * Output: A pandas DataFrame containing the loaded data.
+                           2. analyze_rdc(df):
+                           * Purpose: To identify the top Research Development Classifications (RDCs) by the number of research outputs.
+                           * Mechanism:
+                           * Fills missing 'RDC' values with empty strings.
+                           * Splits comma-separated RDC strings into lists of individual RDCs.
+                           * Strips leading/trailing whitespace from each RDC.
+                           * Uses collections.Counter to count the frequency of each RDC.
+                           * Returns a DataFrame of the top 10 RDCs and their counts.
+                           * Input: df (pandas.DataFrame) - the main data.
+                           * Output: A pandas DataFrame with columns 'RDC' and 'Research Output Count'.
+                           3. plot_publications_per_year(df):
+                           * Purpose: To visualize the number of publications over the years.
+                           * Mechanism:
+                           * Filters out rows with null 'OutputYear'.
+                           * Groups data by 'OutputYear' and counts the number of publications (.size()).
+                           * Uses seaborn.lineplot to create a line graph of publications versus year.
+                           * Sets title, labels, adds a grid, and ensures a tight layout.
+                           * Saves the plot to "publications_per_year.png" and displays it.
+                           * Input: df (pandas.DataFrame).
+                           4. analyze_authors(df):
+                           * Purpose: To identify the top 10 most prolific authors.
+                           * Mechanism:
+                           * Fills missing 'author' values with empty strings.
+                           * Splits semicolon-separated author strings into lists.
+                           * Strips whitespace from each author's name.
+                           * Uses collections.Counter to count publications per author.
+                           * Returns a DataFrame of the top 10 authors and their publication counts.
+                           * Input: df (pandas.DataFrame).
+                           * Output: A pandas DataFrame with columns 'Author' and 'Publications'.
+                           5. analyze_citations(df):
+                           * Purpose: To provide descriptive statistics for publication citations.
+                           * Mechanism:
+                           * Checks if the 'cited_by_count' column exists in the DataFrame.
+                           * If it exists, uses df['cited_by_count'].describe() to get summary statistics.
+                           * If not, returns a message "No citation data available."
+                           * Input: df (pandas.DataFrame).
+                           * Output: A pandas Series with descriptive statistics or a string message.
+                           6. average_outputs_per_rdc(rdc_df):
+                           * Purpose: To calculate the average number of research outputs among the top RDCs.
+                           * Mechanism: Sums the 'Research Output Count' from the rdc_df (output of analyze_rdc) and divides by the number of RDCs in that DataFrame (typically 10).
+                           * Input: rdc_df (pandas.DataFrame) - DataFrame of top RDCs.
+                           * Output: A float representing the average, rounded to 2 decimal places.
+                           7. analyze_coauthors(df):
+                           * Purpose: To identify the top co-author pairs by the number of co-authored publications.
+                           * Mechanism:
+                           * Assumes 'author_clean' column (list of authors per publication) is already created by analyze_authors (Note: the provided code calls analyze_authors before analyze_coauthors but analyze_authors creates df['author_clean'] and analyze_coauthors uses it. This implies df is modified in place and passed along).
+                           * Iterates through the 'author_clean' lists for each publication.
+                           * For publications with 10 or fewer authors, it generates sorted, unique pairs of authors using itertools.combinations.
+                           * Uses collections.Counter to count the occurrences of each co-author pair.
+                           * Returns a DataFrame of the top 10 co-author pairs and their collaboration counts.
+                           * Input: df (pandas.DataFrame) - with an 'author_clean' column.
+                           * Output: A pandas DataFrame with columns "Author Pair" and "Co-authored Publications".
+                           8. plot_top_rdc_trends(df, top_rdc_df):
+                           * Purpose: To visualize publication trends over time for the top 5 RDCs.
+                           * Mechanism:
+                           * Extracts a list of (RDC, Year) tuples from the main DataFrame for all publications.
+                           * Creates a new DataFrame (rdc_years_df) from these tuples.
+                           * Filters this DataFrame to include only data for the top 5 RDCs (obtained from top_rdc_df).
+                           * Uses seaborn.countplot to generate a bar chart where each bar represents the count of publications for a given year, with bars colored by RDC.
+                           * Sets title, rotates x-axis labels for readability, and positions the legend.
+                           * Saves the plot to "top_rdc_trends.png" and displays it.
+                           * Input: df (pandas.DataFrame) - the main data, top_rdc_df (pandas.DataFrame) - DataFrame of top RDCs.
+                           9. run_EDA_analysis():
+                           * Purpose: The main driver function that orchestrates the entire EDA process.
+                           * Mechanism:
+                           * Sets the filepath for the input CSV.
+                           * Checks if the file exists using os.path.exists(); exits if not found.
+                           * Calls load_data() to load the data.
+                           * Calls analyze_rdc() and analyze_authors() to perform initial analyses and importantly, to create the 'RDC_clean' and 'author_clean' columns in the DataFrame df which are used by subsequent functions.
+                           * Prints the results of top RDCs and top authors.
+                           * Calls analyze_citations() and prints citation insights.
+                           * Calls average_outputs_per_rdc() and prints the average.
+                           * Calls analyze_coauthors() and prints top co-author pairs.
+                           * Calls plot_publications_per_year() and plot_top_rdc_trends() to generate and save visualizations.
+                           * Prints confirmation that plots have been saved.
+Execution Flow
+The script begins execution in the if __name__ == "__main__": block, which calls the run_EDA_analysis()function. This function then proceeds sequentially through data loading, various analyses, statistical calculations, and visualization generation, printing key findings to the console and saving plots to files. The DataFrame df is modified in place by analyze_rdc and analyze_authors which add 'RDC_clean' and 'author_clean' columns respectively; these modified columns are then implicitly used by other functions like analyze_coauthors and plot_top_rdc_trends.
+Input and Output
+                           * Input: A single CSV file named "ResearchOutputs_Group3.csv" located in the same directory as the script. This file is expected to contain columns such as 'RDC', 'OutputYear', 'author', and optionally 'cited_by_count'.
+                           * Output:
+                           * Console output: Printed tables and statistics for top RDCs, top authors, citation analysis, average outputs per RDC, and top co-author pairs.
+                           * Image files: "publications_per_year.png" and "top_rdc_trends.png" are saved in the script's directory.
+This structured approach allows for a clear and comprehensive exploration of the research output data, yielding actionable insights and visualizations.
+Part 1 Q2 Part 2. Data Analysis Insights
+This section addresses the key questions regarding the research outputs based on the analyses performed by the Python script, using the provided output data.
+1. Top 10 Performing RDCs (Research Development Classification)
+The script identified the following top 10 Research Development Classifications based on the volume of research outputs:
+  
+
+
+
+Insight: Boston and Michigan are the clear leaders in research output, with significantly higher counts than the other RDCs. There's a notable drop after the top 5 (Triangle), indicating a concentration of research output within these leading institutions or classifications.
+2. Visualization: Number of Publications Per Year
+
+
+  
+
+
+
+Insight from the Plot: The line graph shows a general upward trend in the number of publications from around 1993 to approximately 2023.
+                           * There's a relatively slow but steady increase from 1993 to the early 2000s.
+                           * A more noticeable acceleration in publication output begins around 2004-2005.
+                           * The growth continues, with some fluctuations, reaching a peak around 2023 (with over 200 publications).
+                           * There is a sharp decline in publications shown for the years 2024 and 2025. This is very likely due to the data collection cutoff date; publications for these years may not have been fully cataloged or have occurred yet (especially for 2025). This typically indicates an incomplete dataset for the most recent years rather than an actual drop in research output.
+3. Top 10 Most Prolific Authors
+The script identified the following top 10 authors based on their publication counts:
+Top 10 Most Prolific Authors:
+              Author  Publications
+0            J. Wang           682
+1            Z. Wang           485
+2           Y. Zhang           343
+3             J. Lee           323
+4           L. Zhang           311
+5          M. Finger           294
+6            Y. Chen           293
+7          A. Sharma           288
+8  S. Bhattacharya           277
+9            H. Kim            264
+
+
+Insight: There is a high concentration of publications among a few authors, with "J. Wang" being exceptionally prolific compared to others on the list. The names "Wang" and "Zhang" appear multiple times (with different initials), suggesting these might be common names or perhaps indicate specific research groups or families with high output.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. Citation Insights for FSRDC Research Outputs
+The script provided the following information regarding citations:
+Citation Insight:
+No citation data available.
+
+
+Insight: The dataset processed ("ResearchOutputs_Group3.csv") does not contain a 'cited_by_count' column, or this column has no data. Therefore, no direct statistical analysis of citation impact can be performed using this script on the current dataset. To gain citation insights, the dataset would need to be augmented with citation information.
+5. Additional Creative Insights 
+                           * Average Research Outputs per Top RDC: The script calculated:
+  
+                              * Insight: This figure indicates that among the top 10 RDCs, the average number of research outputs is approximately 807. This highlights a high level of productivity concentrated within these leading classifications.
+                              * Top Co-Author Pairs: The analysis revealed the following top co-author collaborations:
+Top Co-Author Pairs:
+  
+
+                                 * Insight: Several pairs of authors have collaborated on 8 publications, indicating strong research partnerships. Notably, "Benjamin A. Campbell" appears in two of the top pairs, collaborating with both "Rajshree Agarwal" and "Martin Ganco." Similarly, "Rajshree Agarwal" also appears with "Martin Ganco" further down the list, suggesting a closely-knit research group or network among these individuals. The relatively low number of co-authored publications (max 8) for the top pairs, compared to the total output of prolific authors (e.g., J. Wang with 682 publications), might suggest that many prolific authors engage in a wide range of collaborations or perhaps lead larger teams where direct pair-wise co-authorship numbers with any single individual remain modest, or that the dataset's author parsing might split author teams in a way that doesn't always reflect all collaborations for every paper an individual author is on.
+                                 * Publication Trends Over Time for Top 5 RDCs: The script generated a bar chart visualizing these trends.
+  
+
+
+Insight from the Plot ("Unknown-2.png"): The bar chart shows the publication output for the top 5 RDCs (Michigan, Boston, Baruch, Penn State, Triangle) from 1993 to 2025.
+                                 * General Growth: All top 5 RDCs generally show an increase in publication output over time, mirroring the overall trend seen in the "Number of Publications per Year" plot.
+                                 * Dominance of Michigan and Boston: Michigan (blue) and Boston (orange) consistently have higher outputs compared to the other three RDCs, especially in later years.
+                                 * Recent Peaks: Around 2020-2023, there are significant peaks in output for several RDCs, particularly Michigan. For example, in 2022, Michigan shows a very high count (around 240-250). Boston also shows strong output in these years.
+                                 * Variability: While there's an overall growth trend, individual RDCs show year-to-year variability in their publication counts.
+                                 * Recent Decline (2024-2025): Similar to the overall publications plot, all RDCs show a sharp drop in 2024 and 2025. This is almost certainly due to incomplete data for these very recent years rather than a true decline in research activity. For instance, in 2023, Michigan had a very high output, but in 2024 its depicted output is significantly lower.
+                                 * Comparative Growth: It appears that Michigan and Boston have scaled their research output more dramatically in recent years compared to Baruch, Penn State, and Triangle, though all show growth.
+________________
+
+
+Part 2 
+merge data
+
+
+  
+
+The Proj ID column in step1 contained multiple values separated by commas. We processed this column by splitting it into separate rows using .str.split(',') and .explode(), removed any leading or trailing whitespace, and converted the IDs to numeric values. The cleaned step1 data was then merged with the base excel dataset using a left join on ProjectID and OutputTitle, ensuring all base data was preserved while incorporating enriched outputs.
+
+
+PCA
+We selected OutputType_x as the target variable for classification because it represents the type of research output (e.g., journal article, working paper). Understanding the factors that influence output type can provide valuable insights into research publication patterns. We considered other columns like OutputPages_x but found that classification on OutputType_x provided clearer insights.
+We performed Principal Component Analysis (PCA) on selected features of the research outputs. Specifically, we selected both numerical and categorical features, including ProjectStartYear, ProjectEndYear, OutputYear_x, OutputPages_x, OutputType_x, OutputStatus_x, and ProjectRDC.
+Numerical features were standardized using StandardScaler, while categorical features were encoded using OneHotEncoder. This preprocessing ensured that all features were appropriately transformed for PCA. We then applied PCA to reduce the data to two principal components, which were visualized in a scatter plot.
+However, the PCA results did not reveal clear clusters among the different OutputType_x categories. This may be due to the complex, non-linear relationships between the features that PCA (a linear technique) cannot fully capture.  
+classification
+Initially, we examined the class distribution of OutputType_x and observed that several categories were significantly underrepresented, with some classes containing only one instance. Our analysis utilized SMOTE (Synthetic Minority Over-sampling Technique) to address class imbalance in the target variable. This ensured that all classes were sufficiently represented, improving model training. 
+These extremely rare classes pose a significant problem for model training and evaluation. Specifically, classes with only one instance cannot be effectively learned by the model, and they may cause errors when applying SMOTE or other oversampling techniques. Such rare classes also introduce noise rather than meaningful information, making the model less generalizable. Therefore, we decided to drop classes with only one instance, ensuring that all remaining classes have a minimum representation.
+Our feature set included both numerical variables (ProjectStartYear, ProjectEndYear, OutputYear_x, OutputPages_x) and categorical variables (OutputStatus_x, ProjectRDC). The numerical features were standardized using StandardScaler, while categorical features were encoded using one-hot encoding.
+We chose Random Forest as our classification model due to its robustness in handling complex, multi-class problems. Additionally, we explored Principal Component Analysis (PCA) to visualize the feature relationships, but found that its linear nature was limited for our complex data.
+After training on the balanced data, we evaluated the model using a classification report and a confusion matrix, which provided detailed insights into the model's performance across all classes.
+  
+
+
+
+Clustering
+To further analyze patterns in FSRDC research projects, we applied clustering techniques to the enriched metadata. We selected key numerical and categorical variables that capture project characteristics, including ProjectStartYear, ProjectEndYear, OutputYear_x, OutputPages_x, ProjectRDC, OutputStatus_x, and OutputType_x.
+We first used a pipeline to standardize numerical features using StandardScaler and encode categorical variables using OneHotEncoder. Then, we applied KMeans clustering with different values of k (3 and 4) to group similar research outputs. We visualized the clustering results using PCA-reduced 2D projections.
+When comparing k=3 vs k=4, we found that 3 clusters achieved a higher silhouette score, suggesting better separation. However, 4 clusters revealed more granular patterns, such as distinguishing between in-progress reports and published journal articles. Ultimately, both models helped us uncover useful insights:
+                                 * Cluster 0: Long-term projects leading to journal publications, commonly from NY and CA RDCs.
+
+                                 * Cluster 1: Short-term or draft projects, often labeled as working papers or reports.
+
+                                 * Cluster 2/3: More specialized outputs like dissertations or region-specific studies.
+
+We also applied DBSCAN (a density-based clustering algorithm) to detect outliers and unique clusters. DBSCAN was effective in isolating edge cases—projects with unusual durations, page counts, or RDC affiliations—offering potential for qualitative investigation.
+Overall, clustering gave us new perspectives on how research project structure, timeline, and location are associated with the types and stages of published outputs.
+
+
+Text Processing
+In addition to structured metadata, we applied text processing methods to analyze OutputTitle for all FSRDC research outputs. Our goals were to extract meaningful topics and uncover hidden groupings based on the semantic content of the titles.
+TF-IDF + KMeans Clustering
+We vectorized the OutputTitle field using TfidfVectorizer with unigrams and bigrams, and then applied KMeans clustering (k=5) to group titles by textual similarity. After projecting the high-dimensional TF-IDF matrix using PCA, we visualized the title clusters in 2D. Titles within each cluster shared thematic relevance. For example:
+                                    * Cluster A: Titles focused on housing, income, and urban inequality.
+
+                                    * Cluster B: Research related to public health, rural access, or healthcare policy.
+
+                                    * Cluster C: Studies on labor markets, job mobility, and economic shocks.
+
+This approach allowed us to organize unstructured text into interpretable semantic groups.
+Topic Modeling with LDA
+We further applied Latent Dirichlet Allocation (LDA) using CountVectorizer to uncover key topics embedded in the research titles. We identified 5 major themes across the corpus, such as:
+                                       * Housing, inequality, and urban development
+
+                                       * Gender gaps and STEM education outcomes
+
+                                       * COVID-19 and small business impact
+
+                                       * Economic shocks and unemployment
+
+                                       * Healthcare access and rural policy
+
+These LDA topics were presented with top keywords and also used to generate word clouds for dashboard visualization.
+Text processing provided a powerful lens for exploring research focus areas, especially in combination with clustering and metadata. By combining TF-IDF and LDA, we were able to algorithmically surface recurring themes in thousands of research outputs—enabling both thematic summarization and interactive search.
