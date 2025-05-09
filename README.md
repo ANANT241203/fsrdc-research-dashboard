@@ -163,6 +163,6 @@ If you use this dashboard or dataset for research or coursework, please cite:
 ## Connect with the Creator
 Dashboard Created by Anant Aggarwal
 <a href="https://www.linkedin.com/in/anant241203" target="_blank" style="text-decoration:none;">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" width="10" style="vertical-align:middle; margin-right:8px;">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" width="20" style="vertical-align:middle; margin-right:8px;">
     LinkedIn
 </a>
