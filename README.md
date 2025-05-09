@@ -160,3 +160,9 @@ If you use this dashboard or dataset for research or coursework, please cite:
 - University of Pennsylvania - CIT 5900 Spring 2025
 
 ---
+## Connect with the Creator
+
+<a href="https://www.linkedin.com/in/anant241203" target="_blank" style="text-decoration:none;">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" width="30" style="vertical-align:middle; margin-right:8px;">
+    Anant Aggarwal
+</a>
