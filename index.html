@@ -91,26 +91,34 @@
     </section>
 
     <section class="tab-content" id="tab-clustering" style="display:none;">
-        <h2>PCA Projection</h2>
-        <p>Principal Component Analysis (PCA) helps visualize the dataset in 2 dimensions based on year and project duration. This projection shows some natural grouping among research outputs.</p>
-        <select class="chart-dropdown" id="pca-plot-dropdown" style="margin-bottom: 1em;"></select>
+        <h2>PCA & Clustering Visualizations</h2>
+        <p>Explore different 2D projections and clusterings of the research outputs. Use the dropdowns to switch between PCA by OutputType, KMeans (3/4 clusters), DBSCAN, and TF-IDF KMeans text clusters.</p>
+        <label for="pca-plot-dropdown"><b>PCA/Cluster Plot Type:</b></label>
+        <select class="chart-dropdown" id="pca-plot-dropdown" style="margin-bottom: 1em;">
+            <option value="pca-outputtype">PCA by Output Type</option>
+            <option value="kmeans-3">KMeans (3 clusters)</option>
+            <option value="kmeans-4">KMeans (4 clusters)</option>
+            <option value="dbscan">DBSCAN</option>
+            <option value="tfidf-kmeans">TF-IDF KMeans (Text Clusters)</option>
+        </select>
         <div id="pca-plot"></div>
-        <h2>Cluster Visualization</h2>
-        <p>Using KMeans clustering on the PCA-transformed data reveals 3 major clusters of research outputs. These clusters may reflect temporal or institutional research behavior patterns.</p>
-        <select class="chart-dropdown" id="cluster-plot-dropdown" style="margin-bottom: 1em;"></select>
-        <div id="cluster-plot"></div>
+        <div id="tfidf-kmeans-section" style="display:none;">
+            <h3>TF-IDF KMeans Text Clustering</h3>
+            <p>This plot shows clusters based on KMeans applied to TF-IDF features of research titles, revealing thematic groupings in the text.</p>
+            <div id="tfidf-kmeans-plot"></div>
+        </div>
     </section>
 
     <section class="tab-content" id="tab-topics" style="display:none;">
         <h2>Topic Modeling Insights</h2>
         <p>We applied Latent Dirichlet Allocation (LDA) to uncover latent research themes from publication titles. The model identified five prominent topics:</p>
-        <ul>
-            <li><strong>Health & Labor Economics:</strong> effects, health, labor, insurance, children</li>
-            <li><strong>Firms & Innovation:</strong> firms, survey, entrepreneurship, policy, census</li>
-            <li><strong>High-Energy Physics:</strong> proton, tev, collisions, measurement</li>
-            <li><strong>Gravitational Wave Science:</strong> gravitational, wave, LIGO, performance</li>
-            <li><strong>Markup/Formatting Noise:</strong> technical tags and math markup artifacts</li>
-        </ul>
+        <div id="lda-topic-list">
+            <div class="lda-topic"><strong>Topic 1:</strong> effects, insurance, level, health, census, firms, data, evidence</div>
+            <div class="lda-topic"><strong>Topic 2:</strong> market, essays, business, innovation, productivity, labor, firm, firms</div>
+            <div class="lda-topic"><strong>Topic 3:</strong> plant, effects, business, manufacturing, evidence, productivity, international, trade</div>
+            <div class="lda-topic"><strong>Topic 4:</strong> market, states, united, earnings, new, evidence, income, labor</div>
+            <div class="lda-topic"><strong>Topic 5:</strong> employment, industry, energy, market, dynamics, evidence, performance, firm</div>
+        </div>
         <h2>Topic Modeling Word Cloud</h2>
         <p>This word cloud visualizes the most prominent terms identified through LDA topic modeling of research titles. Larger words appear more frequently across top topics.</p>
         <img src="lda_wordcloud.png" alt="Word Cloud of LDA Topics" style="width:100%;max-width:800px;display:block;margin:auto;">
