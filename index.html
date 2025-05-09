@@ -27,31 +27,34 @@
     <section class="tab-content summary-card" id="tab-summary">
         <h2>Project Summary</h2>
         <div class="summary-block">
-            <p class="summary-lead"><strong>Dashboard Features:</strong></p>
+            <p class="summary-lead"><strong>Dashboard Features & Methodology (2025 Update):</strong></p>
             <ul class="summary-list">
-                <li>Interactive bar chart of the top 10 RDCs by research output</li>
-                <li>Line chart showing publication trends over the years</li>
-                <li>Toggleable bar/line chart of the top 10 most prolific authors</li>
-                <li>2D PCA projection plot visualizing research output groupings</li>
-                <li><b>Animated cluster plot (KMeans) showing how research clusters evolve over time</b></li>
-                <li>Searchable and filterable table preview of top research outputs</li>
-                <li>LDA topic modeling insights and word cloud visualization of research themes</li>
-                <li>Discrete Event Simulation (DES) conceptual insights on project lifecycle delays</li>
-                <li>Download link for the enriched dataset (CSV)</li>
-                <li>Dark mode/light mode toggle for accessibility</li>
-                <li>Team member and data/tool information sections</li>
+                <li>Comprehensive data cleaning, deduplication, and enrichment pipeline: combines eight group CSVs, project-level metadata join, and robust API enrichment (Crossref/OpenAlex) with rate-limiting, retries, and local caching for reproducibility and completeness.</li>
+                <li>Interactive EDA: Bar chart of top 10 RDCs (highlighting Boston/Michigan dominance), publication trends over time (with data cutoff caveat for 2024/2025), and top 10 authors (showing name clustering and prolific contributors).</li>
+                <li>Co-authorship network insights: Top author pairs and collaboration patterns, revealing both strong partnerships and distributed networks.</li>
+                <li>Publication trends for top 5 RDCs: Comparative growth and recent peaks, especially for Michigan and Boston.</li>
+                <li>Clustering & PCA: KMeans (k=3, k=4) and DBSCAN on standardized/enriched metadata, with 2D PCA projections. Clusters interpreted as long-term journal projects, short-term/draft outputs, and specialized/region-specific studies.</li>
+                <li>Classification: OutputType_x as target, rare classes dropped, SMOTE for class balancing, Random Forest for robust multi-class prediction, with confusion matrix and report.</li>
+                <li>Text analysis: TF-IDF KMeans (k=5) and LDA topic modeling on OutputTitle, surfacing themes like housing/inequality, public health, labor markets, COVID-19, and healthcare/rural policy. Word cloud visualization included.</li>
+                <li>DES (Discrete Event Simulation): Models project lifecycle from start to publication, quantifies bottlenecks (approval/data access), and estimates median time to publication (3–4 years).</li>
+                <li>Searchable/filterable data table and CSV download for further exploration.</li>
+                <li>Modern UI: Responsive design, dark/light mode toggle, and clear navigation for accessibility.</li>
+                <li>Team and data/tool information section for transparency and reproducibility.</li>
             </ul>
         </div>
         <div class="summary-block">
-            <p class="summary-lead"><strong>Key Results & Insights:</strong></p>
+            <p class="summary-lead"><strong>Key Results & Insights (2025):</strong></p>
             <ul class="summary-list">
-                <li>The Boston RDC leads in research output, followed by Michigan and Chicago</li>
-                <li>Publication activity has grown steadily since 2011, peaking in 2023</li>
-                <li>The most prolific author is David H Autor, with 46 outputs</li>
-                <li>PCA and clustering reveal three main research clusters, suggesting distinct research communities or institutional patterns</li>
-                <li>LDA topic modeling identified five major research themes: Health & Labor Economics, Firms & Innovation, High-Energy Physics, Gravitational Wave Science, and technical/markup artifacts</li>
-                <li>DES simulation suggests the median time from project start to publication is 3–4 years, with bottlenecks at approval and data access stages</li>
-                <li>The dashboard provides a comprehensive, interactive view of FSRDC-linked research, supporting further exploration and analysis</li>
+                <li><b>Data pipeline:</b> Ensured a clean, deduplicated, and richly annotated dataset by combining multiple sources and robust API enrichment with error handling.</li>
+                <li><b>Top RDCs:</b> Boston and Michigan are clear leaders in research output, with a sharp drop after the top 5, indicating output concentration in leading institutions.</li>
+                <li><b>Publication trends:</b> Steady growth since 2011, peaking in 2023; sharp drop in 2024/2025 is due to incomplete data, not a real decline.</li>
+                <li><b>Authors:</b> High concentration among a few prolific authors (notably J. Wang, Z. Wang, Y. Zhang), with common surnames suggesting research groups or teams.</li>
+                <li><b>Co-authorship:</b> Top pairs have 6–8 joint publications, indicating strong but distributed collaboration networks. Many prolific authors collaborate widely, not just in pairs.</li>
+                <li><b>Clustering & PCA:</b> Three main research clusters (long-term journal projects, short-term drafts, specialized outputs); DBSCAN isolates outliers and edge cases. PCA did not reveal clear clusters by output type, likely due to non-linear feature relationships.</li>
+                <li><b>Classification:</b> OutputType_x as target, rare classes dropped, SMOTE for balancing, Random Forest for robust multi-class prediction. Model performance evaluated with confusion matrix and report.</li>
+                <li><b>Text analysis:</b> TF-IDF KMeans and LDA reveal major themes: housing/inequality, public health, labor markets, COVID-19, economic shocks, and healthcare/rural policy. Word cloud and topic lists included for interpretability.</li>
+                <li><b>DES:</b> Median time from project start to publication is 3–4 years, with bottlenecks at approval and data access stages. Highlights the need to streamline these phases for faster research output.</li>
+                <li><b>Comprehensive view:</b> The dashboard provides an interactive, end-to-end exploration of FSRDC-linked research, supporting both high-level insights and detailed drill-downs for further analysis.</li>
             </ul>
         </div>
     </section>
