@@ -1,7 +1,5 @@
 # FSRDC Research Output Dashboard
 
-![Dashboard Banner](https://raw.githubusercontent.com/anant241203/fsrdc-research-dashboard/main/banner.png)  
-
 An interactive data visualization dashboard exploring and analyzing U.S. Census Bureau FSRDC (Federal Statistical Research Data Center)-linked research outputs. Built as part of CIT 5900 Project 3 (Spring 2025, University of Pennsylvania).
 
 ---
